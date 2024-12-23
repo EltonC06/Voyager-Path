@@ -1,0 +1,3 @@
+terra_lua=3
+terra_marte=180
+terra_europa=730
