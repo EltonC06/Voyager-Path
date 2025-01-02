@@ -1,5 +1,5 @@
 from datetime import date, datetime
-
+from viagem import Viagem
 
 def formatar_texto(txt: str):
     print("=" * (len(txt) + 2))
@@ -9,7 +9,7 @@ def formatar_texto(txt: str):
 
 def ler_datas(linha: str):
     linha = linha.split(",")
-    return linha[1], linha[2], linha[3], linha[4]
+    return linha[0], linha[1], linha[2], linha[3], linha[4], linha[5]
 
 
 def converter_str_date(data_str: str):
@@ -31,10 +31,12 @@ opcao = int(input("Digite aqui:"))
 
 match opcao:  # calculo da duração da viagem de ida
     case 1:
-        print("Nada")
+        print("")
+
     case 2:
         print("[1] Lua\n[2] Marte\n[3] Júpiter")
         destino = int(input("Selecione uma opção"))
+
         if destino == 1:
             datas = open("terra-lua-terra.csv").readlines()
             c = 1
@@ -45,13 +47,24 @@ match opcao:  # calculo da duração da viagem de ida
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
             print("=" * 20)
-            resumo_viagem = ler_datas(datas[viagem_escolhida-1])
-            print("Viagem escolhida:")
-            print(f"Data de início: {resumo_viagem[0]}\n"
-                  f"Data de chegada na Lua: {resumo_viagem[1]}\n"
-                  f"Data de chegada na Terra: {resumo_viagem[2]}\n"
-                  f"Dias de viagem no total: {resumo_viagem[3]}")
+            print("Viagem escolhida")
+            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida-1])
+            # Transformando viagem .csv em objeto Viagem
+            viagem = Viagem(
+                            dados_viagem_escolhida[0],
+                            converter_str_date(dados_viagem_escolhida[1]),
+                            converter_str_date(dados_viagem_escolhida[2]),
+                            converter_str_date(dados_viagem_escolhida[3]),
+                            int(dados_viagem_escolhida[4]),
+                            float(dados_viagem_escolhida[5])
+                            )
+            # Armazenamento
+            armazenamento = open("viagens_reservadas.csv", "a").writelines(
+                [viagem.destino + "," + str(viagem.data_inicio) + "," + str(viagem.data_chegada_destino) + "," +
+                 str(viagem.data_chegada_retorno) + "," + str(viagem.duracao) + "," + str(viagem.delta_v) + ",\n"]
+            )
             formatar_texto("Boa viagem :)")
+
         elif destino == 2:
             datas = open("terra-marte-terra.csv").readlines()
             c = 1
@@ -62,14 +75,23 @@ match opcao:  # calculo da duração da viagem de ida
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
             print("=" * 20)
-            # Selecionando viagem escolhida pelo usuario
-            resumo_viagem = ler_datas(datas[viagem_escolhida - 1])
-            print("Viagem escolhida:")
-            print(f"Data de início: {resumo_viagem[0]}\n"
-                  f"Data de chegada em Marte: {resumo_viagem[1]}\n"
-                  f"Data de chegada na Terra: {resumo_viagem[2]}\n"
-                  f"Dias de viagem no total: {resumo_viagem[3]}")
+            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida-1])
+            # Transformando viagem .csv em objeto Viagem
+            viagem = Viagem(
+                            dados_viagem_escolhida[0],
+                            converter_str_date(dados_viagem_escolhida[1]),
+                            converter_str_date(dados_viagem_escolhida[2]),
+                            converter_str_date(dados_viagem_escolhida[3]),
+                            int(dados_viagem_escolhida[4]),
+                            float(dados_viagem_escolhida[5])
+                            )
+            # Armazenamento
+            armazenamento = open("viagens_reservadas.csv", "a").writelines(
+                [viagem.destino + "," + str(viagem.data_inicio) + "," + str(viagem.data_chegada_destino) + "," +
+                 str(viagem.data_chegada_retorno) + "," + str(viagem.duracao) + "," + str(viagem.delta_v) + ",\n"]
+            )
             formatar_texto("Boa viagem :)")
+
         elif destino == 3:
             datas = open("terra-jupiter-terra.csv").readlines()
             c = 1
@@ -80,10 +102,20 @@ match opcao:  # calculo da duração da viagem de ida
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
             print("=" * 20)
-            resumo_viagem = ler_datas(datas[viagem_escolhida - 1])
-            print("Viagem escolhida:")
-            print(f"Data de início: {resumo_viagem[0]}\n"
-                  f"Data de chegada em Jupiter: {resumo_viagem[1]}\n"
-                  f"Data de chegada na Terra: {resumo_viagem[2]}\n"
-                  f"Dias de viagem no total: {resumo_viagem[3]}")
+            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida-1])
+            # Transformando viagem .csv em objeto Viagem
+            viagem = Viagem(
+                            dados_viagem_escolhida[0],
+                            converter_str_date(dados_viagem_escolhida[1]),
+                            converter_str_date(dados_viagem_escolhida[2]),
+                            converter_str_date(dados_viagem_escolhida[3]),
+                            int(dados_viagem_escolhida[4]),
+                            float(dados_viagem_escolhida[5])
+                            )
+            # Armazenamento
+            armazenamento = open("viagens_reservadas.csv", "a").writelines(
+                [viagem.destino + "," + str(viagem.data_inicio) + "," + str(viagem.data_chegada_destino) + "," +
+                 str(viagem.data_chegada_retorno) + "," + str(viagem.duracao) + "," + str(viagem.delta_v) + ",\n"]
+            )
+            print("Viagem escolhida")
             formatar_texto("Boa viagem :)")
