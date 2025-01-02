@@ -35,7 +35,24 @@ match opcao:  # calculo da duração da viagem de ida
     case 2:
         print("[1] Lua\n[2] Marte\n[3] Júpiter")
         destino = int(input("Selecione uma opção"))
-        if destino == 2:
+        if destino == 1:
+            datas = open("terra-lua-terra.csv").readlines()
+            c = 1
+            for line in datas:
+                data = ler_datas(line)
+                print(f"[{c}] Início da viagem: {data[0]}, Chegada na Lua: {data[1]}"
+                      f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias")
+                c += 1
+            viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
+            print("=" * 20)
+            resumo_viagem = ler_datas(datas[viagem_escolhida-1])
+            print("Viagem escolhida:")
+            print(f"Data de início: {resumo_viagem[0]}\n"
+                  f"Data de chegada na Lua: {resumo_viagem[1]}\n"
+                  f"Data de chegada na Terra: {resumo_viagem[2]}\n"
+                  f"Dias de viagem no total: {resumo_viagem[3]}")
+            formatar_texto("Boa viagem :)")
+        elif destino == 2:
             datas = open("terra-marte-terra.csv").readlines()
             c = 1
             for line in datas:
@@ -47,9 +64,9 @@ match opcao:  # calculo da duração da viagem de ida
             print("=" * 20)
             # Selecionando viagem escolhida pelo usuario
             resumo_viagem = ler_datas(datas[viagem_escolhida - 1])
-            print("Viagem escolhida:")  # preciso criar classe viagem
+            print("Viagem escolhida:")
             print(f"Data de início: {resumo_viagem[0]}\n"
-                  f"Data de chegada: {resumo_viagem[1]}\n"
+                  f"Data de chegada em Marte: {resumo_viagem[1]}\n"
                   f"Data de chegada na Terra: {resumo_viagem[2]}\n"
                   f"Dias de viagem no total: {resumo_viagem[3]}")
             formatar_texto("Boa viagem :)")
