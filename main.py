@@ -1,8 +1,8 @@
-from datetime import date, timedelta
+from datetime import date, datetime
 
 
 def formatar_texto(txt: str):
-    print("="*(len(txt)+2))
+    print("=" * (len(txt) + 2))
     print(" " + txt)
     print("=" * (len(txt) + 2))
 
@@ -10,6 +10,11 @@ def formatar_texto(txt: str):
 def ler_datas(linha: str):
     linha = linha.split(",")
     return linha[1], linha[2], linha[3], linha[4]
+
+
+def converter_str_date(data_str: str):
+    data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
+    return data_convertida.date()
 
 
 duracao_total = 0
@@ -39,7 +44,7 @@ match opcao:  # calculo da duração da viagem de ida
                       f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias")
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
-            print("="*20)
+            print("=" * 20)
             # Selecionando viagem escolhida pelo usuario
             resumo_viagem = ler_datas(datas[viagem_escolhida - 1])
             print("Viagem escolhida:")  # preciso criar classe viagem
@@ -57,8 +62,8 @@ match opcao:  # calculo da duração da viagem de ida
                       f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias")
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
-            print("="*20)
-            resumo_viagem = ler_datas(datas[viagem_escolhida-1])
+            print("=" * 20)
+            resumo_viagem = ler_datas(datas[viagem_escolhida - 1])
             print("Viagem escolhida:")
             print(f"Data de início: {resumo_viagem[0]}\n"
                   f"Data de chegada em Jupiter: {resumo_viagem[1]}\n"
