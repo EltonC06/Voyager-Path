@@ -30,8 +30,25 @@ print("O que você deseja fazer?\n[1] Ver viagens planejadas\n[2] Planejar viage
 opcao = int(input("Digite aqui:"))
 
 match opcao:  # calculo da duração da viagem de ida
-    case 1:
-        print("")
+    case 1: # salvar viagem
+        viagens_reservadas = []
+        file = open("viagens_reservadas.csv").readlines()
+        print("Viagens reservadas:")
+        for viagem in file:
+            viagem = ler_datas(viagem)
+            v = Viagem(
+                viagem[0],
+                datetime.strptime(viagem[1], "%Y-%m-%d"),  # formatando data (data chega assim: 2025-01-12)
+                datetime.strptime(viagem[2], "%Y-%m-%d"),
+                datetime.strptime(viagem[3], "%Y-%m-%d"),
+                int(viagem[4]),
+                float(viagem[5])
+            )
+            viagens_reservadas.append(v)
+        # Mostrar viagens salvas (falta metodo __str__)
+        for viagem in viagens_reservadas:
+            print(viagem)
+
 
     case 2:
         print("[1] Lua\n[2] Marte\n[3] Júpiter")
