@@ -17,3 +17,10 @@ class Viagem:
         self.delta_v = delta_v
         self.duracao = duracao
 
+    def __str__(self):
+        return f'Destino: {self.destino}\n' \
+               f'Data da viagem: {self.data_inicio}\n' \
+               f'Data de chegada em {self.destino}: {self.data_chegada_destino}\n' \
+               f'Data de chegada na Terra: {self.data_chegada_retorno}\n' \
+               f'Duração total da viagem: {self.duracao}'
+
