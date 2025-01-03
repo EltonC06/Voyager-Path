@@ -1,5 +1,45 @@
 from datetime import date, datetime
 from viagem import Viagem
+from kivy.app import App
+from kivy.uix.button import Button
+from kivy.uix.screenmanager import Screen, ScreenManager
+
+duracao_total = 0
+dias_permanencia = 0
+data_partida_terra = None
+data_chegada_destino = None
+data_partida_destino = None
+data_chegada_terra = None
+data_escolha = None
+
+
+class Menu(Screen):
+    pass
+
+class ViagensPlanejadas(Screen):
+    pass
+
+class PlanejarViagem(Screen):
+    pass
+
+
+class MainApp(App):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.sm = None
+
+    def build(self):
+        self.sm = ScreenManager()
+        self.sm.add_widget(Menu(name="Menu"))
+        self.sm.add_widget(ViagensPlanejadas(name="ViagensPlanejadas"))
+        self.sm.add_widget(PlanejarViagem(name="PlanejarViagem"))
+        return self.sm
+
+    def trocar_menu_planejar(self, instance):
+        self.sm.current = "PlanejarViagem"
+
+    def trocar_menu_viagens_planejadas(self, instance):
+        self.sm.current = "ViagensPlanejadas"
 
 
 def formatar_texto(txt: str):
@@ -18,13 +58,7 @@ def converter_str_date(data_str: str):
     return data_convertida.date()
 
 
-duracao_total = 0
-dias_permanencia = 0
-data_partida_terra = None
-data_chegada_destino = None
-data_partida_destino = None
-data_chegada_terra = None
-data_escolha = None
+
 
 formatar_texto("Voyager Trip - Planejador de Viagens")
 print("O que você deseja fazer?\n[1] Ver viagens planejadas\n[2] Planejar viagem")
@@ -140,3 +174,7 @@ match opcao:  # calculo da duração da viagem de ida
             )
             print("Viagem escolhida")
             formatar_texto("Boa viagem :)")
+
+if __name__ == '__main__':
+    app = MainApp()
+    app.run()

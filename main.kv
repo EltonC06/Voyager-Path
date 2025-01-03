@@ -1,0 +1,29 @@
+<Menu>:
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Ver viagens planejadas'
+            on_press: app.trocar_menu_viagens_planejadas(self)
+        Button:
+            text: 'Planejar viagem interplanetária'
+            on_press: app.trocar_menu_planejar(self)
+
+
+<ViagensPlanejadas>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Viagens planejadas'
+
+
+<PlanejarViagem>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Escolha seu destino'
+        Button:
+            text: 'Lua'
+        Button:
+            text: 'Marte'
+        Button:
+            text: 'Jupiter'
