@@ -3,10 +3,10 @@
         orientation: 'vertical'
         Button:
             text: 'Ver viagens planejadas'
-            on_press: app.trocar_menu_viagens_planejadas(self)
+            on_press: app.tela_menu_viagens_planejadas(self)
         Button:
             text: 'Planejar viagem interplanetária'
-            on_press: app.trocar_menu_planejar(self)
+            on_press: app.tela_menu_planejar(self)
 
 
 <ViagensPlanejadas>:
@@ -25,5 +25,17 @@
             text: 'Lua'
         Button:
             text: 'Marte'
+            on_press: app.tela_marte_viagens(self)
         Button:
             text: 'Jupiter'
+
+<MarteViagens>:
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Escolha uma das viagens abaixo'
+        GridLayout:
+            cols: 1
+            id: viagens_grid

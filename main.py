@@ -13,13 +13,40 @@ data_chegada_terra = None
 data_escolha = None
 
 
+def ler_datas(linha: str):
+    linha = linha.split(",")
+    return linha[0], linha[1], linha[2], linha[3], linha[4], linha[5]
+
+
 class Menu(Screen):
     pass
+
 
 class ViagensPlanejadas(Screen):
     pass
 
+
 class PlanejarViagem(Screen):
+    pass
+
+
+class MarteViagens(Screen):
+    def carregar_marte_viagens(self, instance):
+        datas = open("terra-marte-terra.csv").readlines()
+        c = 1
+        for line in datas:
+            data = ler_datas(line)
+            btn = Button(text=f"[{c}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}"
+                              f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias"
+
+                         )
+            self.ids.viagens_grid.add_widget(btn)
+            c += 1
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.carregar_marte_viagens(self)
+
     pass
 
 
@@ -30,16 +57,21 @@ class MainApp(App):
 
     def build(self):
         self.sm = ScreenManager()
+        # Adicionando telas no objeto ScreenManager
         self.sm.add_widget(Menu(name="Menu"))
         self.sm.add_widget(ViagensPlanejadas(name="ViagensPlanejadas"))
         self.sm.add_widget(PlanejarViagem(name="PlanejarViagem"))
+        self.sm.add_widget(MarteViagens(name="MarteViagens"))
         return self.sm
 
-    def trocar_menu_planejar(self, instance):
+    def tela_menu_planejar(self, instance):
         self.sm.current = "PlanejarViagem"
 
-    def trocar_menu_viagens_planejadas(self, instance):
+    def tela_menu_viagens_planejadas(self, instance):
         self.sm.current = "ViagensPlanejadas"
+
+    def tela_marte_viagens(self, instance):
+        self.sm.current = "MarteViagens"
 
 
 def formatar_texto(txt: str):
@@ -48,16 +80,9 @@ def formatar_texto(txt: str):
     print("=" * (len(txt) + 2))
 
 
-def ler_datas(linha: str):
-    linha = linha.split(",")
-    return linha[0], linha[1], linha[2], linha[3], linha[4], linha[5]
-
-
 def converter_str_date(data_str: str):
     data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
     return data_convertida.date()
-
-
 
 
 formatar_texto("Voyager Trip - Planejador de Viagens")
@@ -86,7 +111,7 @@ match opcao:  # calculo da duração da viagem de ida
             # Mostrar viagens salvas (falta metodo __str__)
             for viagem in viagens_reservadas:
                 print(viagem.__str__())
-                print("="*20)
+                print("=" * 20)
 
     case 2:
         print("[1] Lua\n[2] Marte\n[3] Júpiter")
@@ -103,16 +128,16 @@ match opcao:  # calculo da duração da viagem de ida
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
             print("=" * 20)
             print("Viagem escolhida")
-            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida-1])
+            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida - 1])
             # Transformando viagem .csv em objeto Viagem
             viagem = Viagem(
-                            dados_viagem_escolhida[0],
-                            converter_str_date(dados_viagem_escolhida[1]),
-                            converter_str_date(dados_viagem_escolhida[2]),
-                            converter_str_date(dados_viagem_escolhida[3]),
-                            int(dados_viagem_escolhida[4]),
-                            float(dados_viagem_escolhida[5])
-                            )
+                dados_viagem_escolhida[0],
+                converter_str_date(dados_viagem_escolhida[1]),
+                converter_str_date(dados_viagem_escolhida[2]),
+                converter_str_date(dados_viagem_escolhida[3]),
+                int(dados_viagem_escolhida[4]),
+                float(dados_viagem_escolhida[5])
+            )
             # Armazenamento
             armazenamento = open("viagens_reservadas.csv", "a").writelines(
                 [viagem.destino + "," + str(viagem.data_inicio) + "," + str(viagem.data_chegada_destino) + "," +
@@ -130,16 +155,16 @@ match opcao:  # calculo da duração da viagem de ida
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
             print("=" * 20)
-            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida-1])
+            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida - 1])
             # Transformando viagem .csv em objeto Viagem
             viagem = Viagem(
-                            dados_viagem_escolhida[0],
-                            converter_str_date(dados_viagem_escolhida[1]),
-                            converter_str_date(dados_viagem_escolhida[2]),
-                            converter_str_date(dados_viagem_escolhida[3]),
-                            int(dados_viagem_escolhida[4]),
-                            float(dados_viagem_escolhida[5])
-                            )
+                dados_viagem_escolhida[0],
+                converter_str_date(dados_viagem_escolhida[1]),
+                converter_str_date(dados_viagem_escolhida[2]),
+                converter_str_date(dados_viagem_escolhida[3]),
+                int(dados_viagem_escolhida[4]),
+                float(dados_viagem_escolhida[5])
+            )
             # Armazenamento
             armazenamento = open("viagens_reservadas.csv", "a").writelines(
                 [viagem.destino + "," + str(viagem.data_inicio) + "," + str(viagem.data_chegada_destino) + "," +
@@ -157,16 +182,16 @@ match opcao:  # calculo da duração da viagem de ida
                 c += 1
             viagem_escolhida = int(input("Selecione uma das opções de viagem listadas: "))
             print("=" * 20)
-            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida-1])
+            dados_viagem_escolhida = ler_datas(datas[viagem_escolhida - 1])
             # Transformando viagem .csv em objeto Viagem
             viagem = Viagem(
-                            dados_viagem_escolhida[0],
-                            converter_str_date(dados_viagem_escolhida[1]),
-                            converter_str_date(dados_viagem_escolhida[2]),
-                            converter_str_date(dados_viagem_escolhida[3]),
-                            int(dados_viagem_escolhida[4]),
-                            float(dados_viagem_escolhida[5])
-                            )
+                dados_viagem_escolhida[0],
+                converter_str_date(dados_viagem_escolhida[1]),
+                converter_str_date(dados_viagem_escolhida[2]),
+                converter_str_date(dados_viagem_escolhida[3]),
+                int(dados_viagem_escolhida[4]),
+                float(dados_viagem_escolhida[5])
+            )
             # Armazenamento
             armazenamento = open("viagens_reservadas.csv", "a").writelines(
                 [viagem.destino + "," + str(viagem.data_inicio) + "," + str(viagem.data_chegada_destino) + "," +
