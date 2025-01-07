@@ -23,6 +23,7 @@
             text: 'Escolha seu destino'
         Button:
             text: 'Lua'
+            on_press: app.tela_lua_viagens(self)
         Button:
             text: 'Marte'
             on_press: app.tela_marte_viagens(self)
@@ -42,6 +43,17 @@
             id: viagens_grid
 
 <JupiterViagens>:
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Escolha uma das viagens abaixo'
+        GridLayout:
+            cols: 1
+            id: viagens_grid
+
+<LuaViagens>:
     GridLayout:
         cols: 1
         BoxLayout:
