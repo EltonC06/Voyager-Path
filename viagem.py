@@ -17,6 +17,12 @@ class Viagem:
         self.delta_v = delta_v
         self.duracao = duracao
 
+    def converter_csv(self):
+        return (
+            [self.destino + "," + str(self.data_inicio) + "," + str(self.data_chegada_destino) + "," +
+             str(self.data_chegada_retorno) + "," + str(self.duracao) + "," + str(self.delta_v) + ",\n"]
+        )
+
     def __str__(self):
         return f'Destino: {self.destino}\n' \
                f'Data da viagem: {self.data_inicio}\n' \
