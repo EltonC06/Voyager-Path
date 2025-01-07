@@ -28,8 +28,20 @@
             on_press: app.tela_marte_viagens(self)
         Button:
             text: 'Jupiter'
+            on_press: app.tela_jupiter_viagens(self)
 
 <MarteViagens>:
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Escolha uma das viagens abaixo'
+        GridLayout:
+            cols: 1
+            id: viagens_grid
+
+<JupiterViagens>:
     GridLayout:
         cols: 1
         BoxLayout:

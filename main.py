@@ -31,7 +31,7 @@ class PlanejarViagem(Screen):
 
 
 class MarteViagens(Screen):
-    def carregar_marte_viagens(self, instance):
+    def carregar_marte_viagens(self):
         self.contador = 1
         for linha in self.datas:  # para cada linha no arquivo csv, irei criar um botão contendo as infos da viagem
             data = ler_datas(linha)
@@ -62,9 +62,40 @@ class MarteViagens(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.datas = open("terra-marte-terra.csv").readlines()
-        self.carregar_marte_viagens(self)
+        self.carregar_marte_viagens()
 
 
+class JupiterViagens(Screen):
+    def carregar_jupiter_viagens(self):
+        self.contador = 1
+        for linha in self.datas:  # para cada linha no arquivo csv, irei criar um botão contendo as infos da viagem
+            data = ler_datas(linha)
+            btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}"
+                              f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias",
+                         on_press=lambda instance, c=self.contador: self.salvar_viagem(instance, c)
+                         )
+            self.ids.viagens_grid.add_widget(btn)
+            self.contador += 1
+
+    def salvar_viagem(self, instance, viagemescolhida):
+        dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida-1])
+        # Transformando viagem .csv em objeto Viagem
+        viagem = Viagem(
+            dados_viagem_escolhida[0],
+            converter_str_date(dados_viagem_escolhida[1]),
+            converter_str_date(dados_viagem_escolhida[2]),
+            converter_str_date(dados_viagem_escolhida[3]),
+            int(dados_viagem_escolhida[4]),
+            float(dados_viagem_escolhida[5])
+        )
+
+        # salvando viagem escolhida
+        open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.datas = open("terra-jupiter-terra.csv").readlines()
+        self.carregar_jupiter_viagens()
     pass
 
 
@@ -80,6 +111,7 @@ class MainApp(App):
         self.sm.add_widget(ViagensPlanejadas(name="ViagensPlanejadas"))
         self.sm.add_widget(PlanejarViagem(name="PlanejarViagem"))
         self.sm.add_widget(MarteViagens(name="MarteViagens"))
+        self.sm.add_widget(JupiterViagens(name="JupiterViagens"))
         return self.sm
 
     def tela_menu_planejar(self, instance):
@@ -90,6 +122,9 @@ class MainApp(App):
 
     def tela_marte_viagens(self, instance):
         self.sm.current = "MarteViagens"
+
+    def tela_jupiter_viagens(self, instance):
+        self.sm.current = "JupiterViagens"
 
 
 def formatar_texto(txt: str):
