@@ -10,10 +10,16 @@
 
 
 <ViagensPlanejadas>:
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: 'Viagens planejadas'
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Viagens planejadas'
+        GridLayout:
+            cols: 1
+            id: viagens_reservadas
+
 
 
 <PlanejarViagem>:

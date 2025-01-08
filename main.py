@@ -1,4 +1,8 @@
 from datetime import date, datetime
+
+from kivy.uix.label import Label
+from kivy.graphics import Color, Rectangle
+
 from viagem import Viagem
 from kivy.app import App
 from kivy.uix.button import Button
@@ -23,6 +27,33 @@ class Menu(Screen):
 
 
 class ViagensPlanejadas(Screen):
+    def carregar_viagens_planejadas(self):
+        cor_fundo_1 = [0, 0.5, 0.5, 1]
+        cor_fundo_2 = [0, 0.3, 0.5, 1]
+
+        self.contador = 1
+
+        for linha in self.datas:
+            data = ler_datas(linha)
+            if self.contador % 2 == 0:
+                btn = Button(text=f"[{self.contador}] Destino: {data[0]} Início da viagem: {data[1]}, "
+                                  f"Chegada no destino: {data[2]}"
+                                  f", Fim da viagem: {data[3]}, Duração total:{data[4]} dias",
+                             background_color=cor_fundo_1)
+            else:
+                btn = Button(text=f"[{self.contador}] Destino: {data[0]} Início da viagem: {data[1]}, "
+                                  f"Chegada no destino: {data[2]}"
+                                  f", Fim da viagem: {data[3]}, Duração total:{data[4]} dias",
+                             background_color=cor_fundo_2)
+
+            self.ids.viagens_reservadas.add_widget(btn)
+            self.contador += 1
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.datas = open("viagens_reservadas.csv").readlines()
+        self.carregar_viagens_planejadas()
+
     pass
 
 
@@ -43,7 +74,7 @@ class MarteViagens(Screen):
             self.contador += 1
 
     def salvar_viagem(self, instance, viagemescolhida):
-        dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida-1])
+        dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida - 1])
         # Transformando viagem .csv em objeto Viagem
         viagem = Viagem(
             dados_viagem_escolhida[0],
@@ -56,8 +87,6 @@ class MarteViagens(Screen):
 
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
-
-
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -78,7 +107,7 @@ class JupiterViagens(Screen):
             self.contador += 1
 
     def salvar_viagem(self, instance, viagemescolhida):
-        dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida-1])
+        dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida - 1])
         # Transformando viagem .csv em objeto Viagem
         viagem = Viagem(
             dados_viagem_escolhida[0],
@@ -96,6 +125,7 @@ class JupiterViagens(Screen):
         super().__init__(**kw)
         self.datas = open("terra-jupiter-terra.csv").readlines()
         self.carregar_jupiter_viagens()
+
     pass
 
 
@@ -130,6 +160,7 @@ class LuaViagens(Screen):
         super().__init__(**kw)
         self.datas = open("terra-lua-terra.csv").readlines()
         self.carregar_lua_viagens()
+
     pass
 
 
@@ -175,34 +206,6 @@ def converter_str_date(data_str: str):
     data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
     return data_convertida.date()
 
-
-formatar_texto("Voyager Trip - Planejador de Viagens")
-print("O que você deseja fazer?\n[1] Ver viagens planejadas\n[2] Planejar viagem")
-opcao = int(input("Digite aqui:"))
-
-match opcao:
-    case 1:  # salvar viagem
-        viagens_reservadas = []  # viagens salvas serão armazenadas nessa lista, para depois eu pecorre-la
-        file = open("viagens_reservadas.csv").readlines()
-        print("Viagens reservadas:")
-        if len(file) < 1:
-            print("Nenhuma viagem reservada até o momento")
-        else:
-            for viagem in file:
-                viagem = ler_datas(viagem)
-                v = Viagem(
-                    viagem[0],
-                    datetime.strptime(viagem[1], "%Y-%m-%d"),  # formatando data (data chega assim: 2025-01-12)
-                    datetime.strptime(viagem[2], "%Y-%m-%d"),
-                    datetime.strptime(viagem[3], "%Y-%m-%d"),
-                    int(viagem[4]),
-                    float(viagem[5])
-                )
-                viagens_reservadas.append(v)
-            # Mostrar viagens salvas (falta metodo __str__)
-            for viagem in viagens_reservadas:
-                print(viagem.__str__())
-                print("=" * 20)
 
 if __name__ == '__main__':
     app = MainApp()
