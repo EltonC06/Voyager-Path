@@ -1,12 +1,14 @@
 <Menu>:
     BoxLayout:
         orientation: 'vertical'
-        Button:
-            text: 'Ver viagens planejadas'
-            on_press: app.tela_menu_viagens_planejadas(self)
-        Button:
-            text: 'Planejar viagem interplanetária'
-            on_press: app.tela_menu_planejar(self)
+        BoxLayout:
+            orientation: 'vertical'
+            Button:
+                text: 'Ver viagens planejadas'
+                on_press: app.tela_menu_viagens_planejadas(self)
+            Button:
+                text: 'Planejar viagem interplanetária'
+                on_press: app.tela_menu_planejar(self)
 
 
 <ViagensPlanejadas>:

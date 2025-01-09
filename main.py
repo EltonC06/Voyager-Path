@@ -1,12 +1,10 @@
 from datetime import date, datetime
 
-from kivy.uix.label import Label
-from kivy.graphics import Color, Rectangle
-
 from viagem import Viagem
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.core.window import Window
 
 duracao_total = 0
 dias_permanencia = 0
@@ -15,6 +13,8 @@ data_chegada_destino = None
 data_partida_destino = None
 data_chegada_terra = None
 data_escolha = None
+
+Window.size = (Window.height * 9 / 16, Window.height)
 
 
 def ler_datas(linha: str):
