@@ -87,6 +87,8 @@ class MarteViagens(Screen):
 
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+        app.tela_menu_inicial(self)
+
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -120,6 +122,8 @@ class JupiterViagens(Screen):
 
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+        app.tela_menu_inicial(self)
+
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -155,6 +159,9 @@ class LuaViagens(Screen):
 
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+        # Retorno à tela inicial
+        app.tela_menu_inicial(self)
+
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -180,6 +187,9 @@ class MainApp(App):
         self.sm.add_widget(LuaViagens(name="LuaViagens"))
         return self.sm
 
+    def tela_menu_inicial(self, instance):
+        self.sm.current = "Menu"
+
     def tela_menu_planejar(self, instance):
         self.sm.current = "PlanejarViagem"
 
@@ -194,12 +204,6 @@ class MainApp(App):
 
     def tela_lua_viagens(self, instance):
         self.sm.current = "LuaViagens"
-
-
-def formatar_texto(txt: str):
-    print("=" * (len(txt) + 2))
-    print(" " + txt)
-    print("=" * (len(txt) + 2))
 
 
 def converter_str_date(data_str: str):
