@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 
 from viagem import Viagem
 from kivy.app import App
@@ -27,13 +27,18 @@ class Menu(Screen):
 
 
 class ViagensPlanejadas(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.datas = open("viagens_reservadas.csv").readlines()
+        self.carregar_viagens_planejadas()
+        self.contador = None
+
     def carregar_viagens_planejadas(self):
         cor_fundo_1 = [0, 0.5, 0.5, 1]
         cor_fundo_2 = [0, 0.3, 0.5, 1]
-
         self.contador = 1
-
         for linha in self.datas:
+
             data = ler_datas(linha)
             if self.contador % 2 == 0:
                 btn = Button(text=f"[{self.contador}] Destino: {data[0]} Início da viagem: {data[1]}, "
@@ -49,11 +54,6 @@ class ViagensPlanejadas(Screen):
             self.ids.viagens_reservadas.add_widget(btn)
             self.contador += 1
 
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        self.datas = open("viagens_reservadas.csv").readlines()
-        self.carregar_viagens_planejadas()
-
     pass
 
 
@@ -62,18 +62,24 @@ class PlanejarViagem(Screen):
 
 
 class MarteViagens(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.datas = open("terra-marte-terra.csv").readlines()
+        self.carregar_marte_viagens()
+        self.contador = None
+
     def carregar_marte_viagens(self):
         self.contador = 1
         for linha in self.datas:  # para cada linha no arquivo csv, irei criar um botão contendo as infos da viagem
             data = ler_datas(linha)
             btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}"
                               f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias",
-                         on_press=lambda instance, c=self.contador: self.salvar_viagem(instance, c)
+                         on_press=lambda instance, c=self.contador: self.salvar_viagem(c)
                          )
             self.ids.viagens_grid.add_widget(btn)
             self.contador += 1
 
-    def salvar_viagem(self, instance, viagemescolhida):
+    def salvar_viagem(self, viagemescolhida):
         dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida - 1])
         # Transformando viagem .csv em objeto Viagem
         viagem = Viagem(
@@ -87,28 +93,28 @@ class MarteViagens(Screen):
 
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
-        app.tela_menu_inicial(self)
-
-
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        self.datas = open("terra-marte-terra.csv").readlines()
-        self.carregar_marte_viagens()
+        app.tela_menu_inicial()
 
 
 class JupiterViagens(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.datas = open("terra-jupiter-terra.csv").readlines()
+        self.carregar_jupiter_viagens()
+        self.contador = None
+
     def carregar_jupiter_viagens(self):
         self.contador = 1
         for linha in self.datas:  # para cada linha no arquivo csv, irei criar um botão contendo as infos da viagem
             data = ler_datas(linha)
             btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}"
                               f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias",
-                         on_press=lambda instance, c=self.contador: self.salvar_viagem(instance, c)
+                         on_press=lambda instance, c=self.contador: self.salvar_viagem(c)
                          )
             self.ids.viagens_grid.add_widget(btn)
             self.contador += 1
 
-    def salvar_viagem(self, instance, viagemescolhida):
+    def salvar_viagem(self, viagemescolhida):
         dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida - 1])
         # Transformando viagem .csv em objeto Viagem
         viagem = Viagem(
@@ -122,30 +128,30 @@ class JupiterViagens(Screen):
 
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
-        app.tela_menu_inicial(self)
-
-
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        self.datas = open("terra-jupiter-terra.csv").readlines()
-        self.carregar_jupiter_viagens()
+        app.tela_menu_inicial()
 
     pass
 
 
 class LuaViagens(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.datas = open("terra-lua-terra.csv").readlines()
+        self.carregar_lua_viagens()
+        self.contador = None
+
     def carregar_lua_viagens(self):
-        self.contador = 1
         for linha in self.datas:  # para cada linha no arquivo csv, irei criar um botão contendo as infos da viagem
+            self.contador = 1
             data = ler_datas(linha)
             btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}"
                               f", Fim da viagem: {data[2]}, Duração total:{data[3]} dias",
-                         on_press=lambda instance, c=self.contador: self.salvar_viagem(instance, c)
+                         on_press=lambda instance, c=self.contador: self.salvar_viagem(c)
                          )
             self.ids.viagens_grid.add_widget(btn)
             self.contador += 1
 
-    def salvar_viagem(self, instance, viagemescolhida):
+    def salvar_viagem(self, viagemescolhida):
         dados_viagem_escolhida = ler_datas(self.datas[viagemescolhida - 1])
         # Transformando viagem .csv em objeto Viagem
         viagem = Viagem(
@@ -160,13 +166,7 @@ class LuaViagens(Screen):
         # salvando viagem escolhida
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
         # Retorno à tela inicial
-        app.tela_menu_inicial(self)
-
-
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        self.datas = open("terra-lua-terra.csv").readlines()
-        self.carregar_lua_viagens()
+        app.tela_menu_inicial()
 
     pass
 
@@ -187,22 +187,22 @@ class MainApp(App):
         self.sm.add_widget(LuaViagens(name="LuaViagens"))
         return self.sm
 
-    def tela_menu_inicial(self, instance):
+    def tela_menu_inicial(self):
         self.sm.current = "Menu"
 
-    def tela_menu_planejar(self, instance):
+    def tela_menu_planejar(self):
         self.sm.current = "PlanejarViagem"
 
-    def tela_menu_viagens_planejadas(self, instance):
+    def tela_menu_viagens_planejadas(self):
         self.sm.current = "ViagensPlanejadas"
 
-    def tela_marte_viagens(self, instance):
+    def tela_marte_viagens(self):
         self.sm.current = "MarteViagens"
 
-    def tela_jupiter_viagens(self, instance):
+    def tela_jupiter_viagens(self):
         self.sm.current = "JupiterViagens"
 
-    def tela_lua_viagens(self, instance):
+    def tela_lua_viagens(self):
         self.sm.current = "LuaViagens"
 
 

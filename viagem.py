@@ -29,4 +29,3 @@ class Viagem:
                f'Data de chegada em {self.destino}: {self.data_chegada_destino}\n' \
                f'Data de chegada na Terra: {self.data_chegada_retorno}\n' \
                f'Duração total da viagem: {self.duracao}'
-

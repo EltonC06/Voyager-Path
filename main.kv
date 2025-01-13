@@ -5,10 +5,10 @@
             orientation: 'vertical'
             Button:
                 text: 'Ver viagens planejadas'
-                on_press: app.tela_menu_viagens_planejadas(self)
+                on_press: app.tela_menu_viagens_planejadas()
             Button:
                 text: 'Planejar viagem interplanetária'
-                on_press: app.tela_menu_planejar(self)
+                on_press: app.tela_menu_planejar()
 
 
 <ViagensPlanejadas>:
@@ -31,13 +31,13 @@
             text: 'Escolha seu destino'
         Button:
             text: 'Lua'
-            on_press: app.tela_lua_viagens(self)
+            on_press: app.tela_lua_viagens()
         Button:
             text: 'Marte'
-            on_press: app.tela_marte_viagens(self)
+            on_press: app.tela_marte_viagens()
         Button:
             text: 'Jupiter'
-            on_press: app.tela_jupiter_viagens(self)
+            on_press: app.tela_jupiter_viagens()
 
 <MarteViagens>:
     GridLayout:
