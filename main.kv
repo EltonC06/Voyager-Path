@@ -18,9 +18,15 @@
             orientation: 'vertical'
             Label:
                 text: 'Viagens planejadas'
-        GridLayout:
-            cols: 1
-            id: viagens_reservadas
+        ScrollView:
+            size_hint: (1, 1)
+            GridLayout:
+                cols: 1
+                id: viagens_reservadas
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "70dp"
+                spacing: "10dp"
 
 
 
@@ -46,9 +52,15 @@
             orientation: 'vertical'
             Label:
                 text: 'Escolha uma das viagens abaixo'
-        GridLayout:
-            cols: 1
-            id: viagens_grid
+        ScrollView:
+            size_hint: (1, 1)
+            GridLayout:
+                cols: 1
+                id: viagens_grid
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "70dp"
+                spacing: "10dp"
 
 <JupiterViagens>:
     GridLayout:
@@ -57,9 +69,15 @@
             orientation: 'vertical'
             Label:
                 text: 'Escolha uma das viagens abaixo'
-        GridLayout:
-            cols: 1
-            id: viagens_grid
+        ScrollView:
+            size_hint: (1, 1)
+            GridLayout:
+                cols: 1
+                id: viagens_grid
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "70dp"
+                spacing: "10dp"
 
 <LuaViagens>:
     GridLayout:
@@ -68,6 +86,12 @@
             orientation: 'vertical'
             Label:
                 text: 'Escolha uma das viagens abaixo'
-        GridLayout:
-            cols: 1
-            id: viagens_grid
+        ScrollView:
+            size_hint: (1, 1)
+            GridLayout:
+                cols: 1
+                id: viagens_grid
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "70dp"
+                spacing: "10dp"
