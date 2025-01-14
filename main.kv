@@ -1,14 +1,35 @@
 <Menu>:
     BoxLayout:
+        padding: '20dp'
         orientation: 'vertical'
         BoxLayout:
+            size_hint: (1, 0.2)
             orientation: 'vertical'
+            Label:
+                text: 'Voyager Path'
+            Label:
+                text: 'Escolha seu destino:'
+        GridLayout:
+            cols: 1
+            spacing: '10dp'
+            padding: '10dp'
             Button:
+                text: 'Lua'
+                on_press: app.tela_lua_viagens()
+            Button:
+                text: 'Marte'
+                on_press: app.tela_marte_viagens()
+            Button:
+                text: 'Jupiter'
+                on_press: app.tela_jupiter_viagens()
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (0.5, 0.1)
+            Button:
+                size_hint: (1, 1)
+                pos_hint: {"x": 0.5, "y": 1}
                 text: 'Ver viagens planejadas'
                 on_press: app.tela_menu_viagens_planejadas()
-            Button:
-                text: 'Planejar viagem interplanetária'
-                on_press: app.tela_menu_planejar()
 
 
 <ViagensPlanejadas>:
@@ -27,23 +48,6 @@
                 height: self.minimum_height
                 row_default_height: "70dp"
                 spacing: "10dp"
-
-
-
-<PlanejarViagem>:
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: 'Escolha seu destino'
-        Button:
-            text: 'Lua'
-            on_press: app.tela_lua_viagens()
-        Button:
-            text: 'Marte'
-            on_press: app.tela_marte_viagens()
-        Button:
-            text: 'Jupiter'
-            on_press: app.tela_jupiter_viagens()
 
 <MarteViagens>:
     GridLayout:

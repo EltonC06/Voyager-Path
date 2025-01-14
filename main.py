@@ -57,10 +57,6 @@ class ViagensPlanejadas(Screen):
     pass
 
 
-class PlanejarViagem(Screen):
-    pass
-
-
 class MarteViagens(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -181,7 +177,6 @@ class MainApp(App):
         # Adicionando telas no objeto ScreenManager
         self.sm.add_widget(Menu(name="Menu"))
         self.sm.add_widget(ViagensPlanejadas(name="ViagensPlanejadas"))
-        self.sm.add_widget(PlanejarViagem(name="PlanejarViagem"))
         self.sm.add_widget(MarteViagens(name="MarteViagens"))
         self.sm.add_widget(JupiterViagens(name="JupiterViagens"))
         self.sm.add_widget(LuaViagens(name="LuaViagens"))
@@ -189,9 +184,6 @@ class MainApp(App):
 
     def tela_menu_inicial(self):
         self.sm.current = "Menu"
-
-    def tela_menu_planejar(self):
-        self.sm.current = "PlanejarViagem"
 
     def tela_menu_viagens_planejadas(self):
         self.sm.current = "ViagensPlanejadas"
