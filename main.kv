@@ -15,13 +15,13 @@
             padding: '10dp'
             Button:
                 text: 'Lua'
-                on_press: app.tela_lua_viagens()
+                on_press: app.tela_reservar_viagem("lua")
             Button:
                 text: 'Marte'
-                on_press: app.tela_marte_viagens()
+                on_press: app.tela_reservar_viagem("marte")
             Button:
                 text: 'Jupiter'
-                on_press: app.tela_jupiter_viagens()
+                on_press: app.tela_reservar_viagem("jupiter")
         BoxLayout:
             orientation: 'vertical'
             size_hint: (0.5, 0.1)
@@ -49,49 +49,14 @@
                 row_default_height: "70dp"
                 spacing: "10dp"
 
-<MarteViagens>:
+<ReservarViagem>:
     GridLayout:
         cols: 1
         BoxLayout:
             orientation: 'vertical'
             Label:
-                text: 'Escolha uma das viagens abaixo'
+                text: 'Selecione a data de ida e de volta'
         ScrollView:
-            size_hint: (1, 1)
-            GridLayout:
-                cols: 1
-                id: viagens_grid
-                size_hint_y: None
-                height: self.minimum_height
-                row_default_height: "70dp"
-                spacing: "10dp"
-
-<JupiterViagens>:
-    GridLayout:
-        cols: 1
-        BoxLayout:
-            orientation: 'vertical'
-            Label:
-                text: 'Escolha uma das viagens abaixo'
-        ScrollView:
-            size_hint: (1, 1)
-            GridLayout:
-                cols: 1
-                id: viagens_grid
-                size_hint_y: None
-                height: self.minimum_height
-                row_default_height: "70dp"
-                spacing: "10dp"
-
-<LuaViagens>:
-    GridLayout:
-        cols: 1
-        BoxLayout:
-            orientation: 'vertical'
-            Label:
-                text: 'Escolha uma das viagens abaixo'
-        ScrollView:
-            size_hint: (1, 1)
             GridLayout:
                 cols: 1
                 id: viagens_grid
