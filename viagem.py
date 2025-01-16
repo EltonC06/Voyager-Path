@@ -15,7 +15,12 @@ class Viagem:
         self.data_chegada_destino = data_chegada_destino
         self.data_partida_destino = data_partida_destino
         self.data_chegada_retorno = data_chegada_retorno
-        self.duracao = 100
+        self.duracao = self.calcular_duracao(data_inicial=data_inicio, data_final=data_chegada_retorno)
+
+    def calcular_duracao(self, data_inicial: date, data_final: date):
+        duracao = data_final - data_inicial
+        print(duracao)
+        return duracao.days
 
     def converter_csv(self):
         return (

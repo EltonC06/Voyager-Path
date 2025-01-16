@@ -44,13 +44,13 @@ class ViagensPlanejadas(Screen):
                 btn = Button(text=f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
                                   f"Data de retorno da viagem: {dados_viagem[3]}, Data de chegada na Terra:{dados_viagem[4]}\n"
-                                  f"Duração total da viagem: {dados_viagem[5]}",
+                                  f"Duração total da viagem: {dados_viagem[5]} dias",
                              background_color=cor_fundo_1)
             else:
                 btn = Button(text=f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
                                   f"Data de retorno da viagem: {dados_viagem[3]}, Data de chegada na Terra:{dados_viagem[4]}\n"
-                                  f"Duração total da viagem: {dados_viagem[5]}",
+                                  f"Duração total da viagem: {dados_viagem[5]} dias",
                              background_color=cor_fundo_2)
 
             self.ids.viagens_reservadas.add_widget(btn)
@@ -129,7 +129,7 @@ class ReservarViagem(Screen):
 
     def carregar_datas_retorno(self, destino: str):
         print("Carregando datas retorno")
-        self.contador = 0
+        self.contador = 1
         match destino:
             case "marte":
                 print("Marte")
@@ -167,16 +167,16 @@ class ReservarViagem(Screen):
         match destino:
             case "marte":
                 print("Marte")
-                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta])
+                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta-1])
                 print("Data retorno escolhida: " + self.data_retorno_escolhida[0] + " " + self.data_retorno_escolhida[1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("marte")
             case "lua":
-                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta])
+                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta-1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("lua")
             case "jupiter":
-                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta])
+                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta-1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("jupiter")
 
@@ -192,7 +192,6 @@ class ReservarViagem(Screen):
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
         # Retorno à tela inicial
         app.tela_menu_inicial()
-
     pass
 
 
