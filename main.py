@@ -191,6 +191,10 @@ class ReservarViagem(Screen):
         # salvando viagem escolhida em formato csv
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
         # Retorno à tela inicial
+        self.retornar_menu()
+
+    def retornar_menu(self):
+        self.clear_widgets()
         app.tela_menu_inicial()
     pass
 
@@ -215,6 +219,12 @@ class MainApp(App):
 
     def tela_reservar_viagem(self, destino: str):
         # Criando a tela assim que aperta o botão
+        # E se aperto o botão pela segunda vez,
+        # o programa vai detectar que ja tem uma tela criada, apagará e criará uma nova
+        for tela in self.sm.screens:
+            if "ReservarViagem" in tela.name:
+                self.sm.remove_widget(tela)
+
         self.sm.add_widget(ReservarViagem(name="ReservarViagem", destino=destino))
         self.sm.current = "ReservarViagem"
 
