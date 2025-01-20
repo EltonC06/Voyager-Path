@@ -1,26 +1,32 @@
-from datetime import date
+from datetime import date, datetime
 
 
 class Viagem:
 
     def __init__(self,
                  destino: str,
-                 data_inicio: date,
-                 data_chegada_destino: date,
-                 data_partida_destino: date,
-                 data_chegada_retorno: date):
+                 data_inicio: str,
+                 data_chegada_destino: str,
+                 data_partida_destino: str,
+                 data_chegada_retorno: str):
 
         self.destino = destino
-        self.data_inicio = data_inicio
-        self.data_chegada_destino = data_chegada_destino
-        self.data_partida_destino = data_partida_destino
-        self.data_chegada_retorno = data_chegada_retorno
-        self.duracao = self.calcular_duracao(data_inicial=data_inicio, data_final=data_chegada_retorno)
+        self.data_inicio = self.converter_str_date(data_inicio)
+        self.data_chegada_destino = self.converter_str_date(data_chegada_destino)
+        self.data_partida_destino = self.converter_str_date(data_partida_destino)
+        self.data_chegada_retorno = self.converter_str_date(data_chegada_retorno)
+        self.duracao = self.calcular_duracao(data_inicial=self.data_inicio, data_final=self.data_chegada_retorno)
+
+    def converter_str_date(self, data_str: str):
+        data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
+        return data_convertida.date()
 
     def calcular_duracao(self, data_inicial: date, data_final: date):
         duracao = data_final - data_inicial
         print(duracao)
         return duracao.days
+
+
 
     def converter_csv(self):
         return (

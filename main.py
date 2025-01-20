@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from viagem import Viagem
 from kivy.app import App
 from kivy.uix.button import Button
@@ -183,13 +181,15 @@ class ReservarViagem(Screen):
     def salvar_viagem(self, destino: str):
         viagem = Viagem(
             destino,  # destino
-            converter_str_date(self.data_ida_escolhida[0]),  # data inicio
-            converter_str_date(self.data_ida_escolhida[1]),  # data chegada no destino
-            converter_str_date(self.data_retorno_escolhida[0]),  # data partida do destino
-            converter_str_date(self.data_retorno_escolhida[1])  # data de chegada na Terra
+            self.data_ida_escolhida[0],  # data inicio
+            self.data_ida_escolhida[1],  # data chegada no destino
+            self.data_retorno_escolhida[0],  # data partida do destino
+            self.data_retorno_escolhida[1]  # data de chegada na Terra
         )
-        # salvando viagem escolhida em formato csv
+
+        # Salvando viagem escolhida em formato csv. Datas já conferidas
         open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+
         # Retorno à tela inicial
         self.retornar_menu()
 
@@ -227,11 +227,6 @@ class MainApp(App):
 
         self.sm.add_widget(ReservarViagem(name="ReservarViagem", destino=destino))
         self.sm.current = "ReservarViagem"
-
-
-def converter_str_date(data_str: str):
-    data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
-    return data_convertida.date()
 
 
 if __name__ == '__main__':
