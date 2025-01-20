@@ -1,3 +1,7 @@
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+
 from viagem import Viagem
 from kivy.app import App
 from kivy.uix.button import Button
@@ -110,18 +114,18 @@ class ReservarViagem(Screen):
         match destino:
             case "marte":
                 print("Salvando ida: Marte")
-                self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida-1])
+                self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida - 1])
                 print("ida escolhida: " + self.data_ida_escolhida[0] + " " + self.data_ida_escolhida[1])
                 self.ids.viagens_grid.clear_widgets()
                 self.carregar_datas_retorno("marte")
 
             case "lua":
-                self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida-1])
+                self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida - 1])
                 self.ids.viagens_grid.clear_widgets()
                 self.carregar_datas_retorno("lua")
 
             case "jupiter":
-                self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida-1])
+                self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida - 1])
                 self.ids.viagens_grid.clear_widgets()
                 self.carregar_datas_retorno("jupiter")
 
@@ -165,16 +169,17 @@ class ReservarViagem(Screen):
         match destino:
             case "marte":
                 print("Marte")
-                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta-1])
-                print("Data retorno escolhida: " + self.data_retorno_escolhida[0] + " " + self.data_retorno_escolhida[1])
+                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta - 1])
+                print(
+                    "Data retorno escolhida: " + self.data_retorno_escolhida[0] + " " + self.data_retorno_escolhida[1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("marte")
             case "lua":
-                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta-1])
+                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta - 1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("lua")
             case "jupiter":
-                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta-1])
+                self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta - 1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("jupiter")
 
@@ -186,16 +191,43 @@ class ReservarViagem(Screen):
             self.data_retorno_escolhida[0],  # data partida do destino
             self.data_retorno_escolhida[1]  # data de chegada na Terra
         )
+        # Verificação da validade da viagem antes de salvar
+        if viagem.duracao < 0:
+            print("VIAGEM IRREAL")
 
-        # Salvando viagem escolhida em formato csv. Datas já conferidas
-        open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+            gridlayout = GridLayout(cols=1)
+
+            aviso = Label(
+                text="Você não pode planejar uma viagem que termina antes da data de início!"
+            )
+
+            botao = Button(
+                text='Entendido',
+            )
+
+            gridlayout.add_widget(aviso)
+            gridlayout.add_widget(botao)
+
+            popup = Popup(title="AVISO",
+                          auto_dismiss=False,
+                          size_hint=(0.5, 0.5),
+                          )
+
+            popup.add_widget(gridlayout)
+            botao.bind(on_press=popup.dismiss)
+
+            popup.open()
+        else:
+            # Salvando viagem escolhida em formato csv. Datas já conferidas
+            open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+        self.retornar_menu()
 
         # Retorno à tela inicial
-        self.retornar_menu()
 
     def retornar_menu(self):
         self.clear_widgets()
         app.tela_menu_inicial()
+
     pass
 
 
