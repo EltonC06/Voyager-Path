@@ -1,4 +1,4 @@
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 
@@ -192,23 +192,28 @@ class ReservarViagem(Screen):
             self.data_retorno_escolhida[1]  # data de chegada na Terra
         )
         # Verificação da validade da viagem antes de salvar
-        if viagem.duracao < 0:
-            print("VIAGEM IRREAL")
-
-            gridlayout = GridLayout(cols=1)
+        if not viagem.verificar_viabilidade():
+            gridlayout = BoxLayout(
+                orientation="vertical",
+                size=(1, 1)
+            )
 
             aviso = Label(
-                text="Você não pode planejar uma viagem que termina antes da data de início!"
+                text="Você não pode planejar uma viagem que termina antes da data de início!",
+                text_size=(250, None),
+                halign="center",
+                valign="middle"
             )
 
             botao = Button(
                 text='Entendido',
+                size_hint=(1, 0.2)
             )
 
             gridlayout.add_widget(aviso)
             gridlayout.add_widget(botao)
 
-            popup = Popup(title="AVISO",
+            popup = Popup(title="Atenção!",
                           auto_dismiss=False,
                           size_hint=(0.5, 0.5),
                           )

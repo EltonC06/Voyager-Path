@@ -26,6 +26,19 @@ class Viagem:
         print(duracao)
         return duracao.days
 
+    def verificar_viabilidade(self):
+        if self.duracao > 0:
+            print("Duração > 0")
+            if self.data_partida_destino >= self.data_chegada_destino:
+                print("Data de partida é maior que data de chegada no destino")
+                return True
+            else:
+                print("Data de partida é menor que data de chegada no destino")
+                print("inviavel")
+                return False
+        else:
+            print("Não é viavel")
+            return False
 
 
     def converter_csv(self):
