@@ -227,8 +227,6 @@ class ReservarViagem(Screen):
             open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
         self.retornar_menu()
 
-
-
     def retornar_menu(self):
         self.clear_widgets()
         app.tela_menu_inicial()
@@ -245,13 +243,16 @@ class MainApp(App):
         self.sm = ScreenManager()
         # Adicionando telas no objeto ScreenManager
         self.sm.add_widget(Menu(name="Menu"))
-        self.sm.add_widget(ViagensPlanejadas(name="ViagensPlanejadas"))
         return self.sm
 
     def tela_menu_inicial(self):
         self.sm.current = "Menu"
 
-    def tela_menu_viagens_planejadas(self):
+    def tela_menu_viagens_planejadas(self):  # mesma logica que foi aplicada em reservar_viagem.
+        for tela in self.sm.screens:
+            if "ViagensPlanejadas" in tela.name:
+                self.sm.remove_widget(tela)
+        self.sm.add_widget(ViagensPlanejadas(name="ViagensPlanejadas"))
         self.sm.current = "ViagensPlanejadas"
 
     def tela_reservar_viagem(self, destino: str):
