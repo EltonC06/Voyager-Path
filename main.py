@@ -2,7 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 
-from viagem import Viagem
+from entities.viagem import Viagem
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen, ScreenManager
@@ -32,7 +32,7 @@ class Menu(Screen):
 class ViagensPlanejadas(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
-        self.datas_reservadas = open("viagens_reservadas.csv").readlines()
+        self.datas_reservadas = open("database/viagens_reservadas.csv").readlines()
         self.carregar_viagens_planejadas()
         self.contador = None
 
@@ -79,7 +79,7 @@ class ReservarViagem(Screen):
         match destino:
             case "lua":
                 print("Lua")
-                self.datas_ida = open("terra-lua.csv").readlines()
+                self.datas_ida = open("database/terra-lua.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
                     btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada na Lua: {data[1]}",
@@ -90,7 +90,7 @@ class ReservarViagem(Screen):
 
             case "marte":  # !
                 print("Carregando ida: Marte")
-                self.datas_ida = open("terra-marte.csv").readlines()
+                self.datas_ida = open("database/terra-marte.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
                     btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}",
@@ -101,7 +101,7 @@ class ReservarViagem(Screen):
 
             case "jupiter":
                 print("Jupiter")
-                self.datas_ida = open("terra-jupiter.csv").readlines()
+                self.datas_ida = open("database/terra-jupiter.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
                     btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Jupiter: {data[1]}",
@@ -135,7 +135,7 @@ class ReservarViagem(Screen):
         match destino:
             case "marte":
                 print("Marte")
-                self.datas_retorno = open("marte-terra.csv").readlines()
+                self.datas_retorno = open("database/marte-terra.csv").readlines()
                 for linha in self.datas_retorno:  # gerar botões com as datas de retorno
                     data = ler_datas(linha)
                     btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
@@ -145,7 +145,7 @@ class ReservarViagem(Screen):
                     self.contador += 1
 
             case "lua":
-                self.datas_retorno = open("lua-terra.csv").readlines()
+                self.datas_retorno = open("database/lua-terra.csv").readlines()
                 for linha in self.datas_retorno:
                     data = ler_datas(linha)
                     btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
@@ -155,7 +155,7 @@ class ReservarViagem(Screen):
                     self.contador += 1
 
             case "jupiter":
-                self.datas_retorno = open("jupiter-terra.csv").readlines()
+                self.datas_retorno = open("database/jupiter-terra.csv").readlines()
                 for linha in self.datas_retorno:
                     data = ler_datas(linha)
                     btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
@@ -224,7 +224,7 @@ class ReservarViagem(Screen):
             popup.open()
         else:
             # Salvando viagem escolhida em formato csv. Datas já conferidas
-            open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+            open("database/viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
         self.retornar_menu()
 
     def retornar_menu(self):
