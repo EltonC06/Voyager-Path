@@ -227,7 +227,7 @@ class ReservarViagem(Screen):
             open("viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
         self.retornar_menu()
 
-        # Retorno à tela inicial
+
 
     def retornar_menu(self):
         self.clear_widgets()

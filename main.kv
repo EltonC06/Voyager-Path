@@ -48,6 +48,10 @@
                 height: self.minimum_height
                 row_default_height: "70dp"
                 spacing: "10dp"
+        Button:
+            size_hint: (1, 0.15)
+            text: 'Retornar ao menu inicial'
+            on_press: app.tela_menu_inicial()
 
 <ReservarViagem>:
     GridLayout:
