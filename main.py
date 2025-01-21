@@ -45,13 +45,15 @@ class ViagensPlanejadas(Screen):
             if self.contador % 2 == 0:
                 btn = Button(text=f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
-                                  f"Data de retorno da viagem: {dados_viagem[3]}, Data de chegada na Terra:{dados_viagem[4]}\n"
+                                  f"Data de retorno da viagem: {dados_viagem[3]}, "
+                                  f"Data de chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
                              background_color=cor_fundo_1)
             else:
                 btn = Button(text=f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
-                                  f"Data de retorno da viagem: {dados_viagem[3]}, Data de chegada na Terra:{dados_viagem[4]}\n"
+                                  f"Data de retorno da viagem: {dados_viagem[3]}, "
+                                  f"Data de chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
                              background_color=cor_fundo_2)
 
@@ -258,7 +260,7 @@ class MainApp(App):
     def tela_reservar_viagem(self, destino: str):
         # Criando a tela assim que aperta o botão
         # E se aperto o botão pela segunda vez,
-        # o programa vai detectar que ja tem uma tela criada, apagará e criará uma nova
+        # o programa vai detectar que ja tem uma tela criada, apagará e criará outra nova
         for tela in self.sm.screens:
             if "ReservarViagem" in tela.name:
                 self.sm.remove_widget(tela)
@@ -270,3 +272,4 @@ class MainApp(App):
 if __name__ == '__main__':
     app = MainApp()
     app.run()
+    

@@ -1,6 +1,17 @@
 from datetime import date, datetime
 
 
+def converter_str_date(data_str: str):
+    data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
+    return data_convertida.date()
+
+
+def calcular_duracao(data_inicial: date, data_final: date):
+    duracao = data_final - data_inicial
+    print(duracao)
+    return duracao.days
+
+
 class Viagem:
 
     def __init__(self,
@@ -11,20 +22,11 @@ class Viagem:
                  data_chegada_retorno: str):
 
         self.destino = destino
-        self.data_inicio = self.converter_str_date(data_inicio)
-        self.data_chegada_destino = self.converter_str_date(data_chegada_destino)
-        self.data_partida_destino = self.converter_str_date(data_partida_destino)
-        self.data_chegada_retorno = self.converter_str_date(data_chegada_retorno)
-        self.duracao = self.calcular_duracao(data_inicial=self.data_inicio, data_final=self.data_chegada_retorno)
-
-    def converter_str_date(self, data_str: str):
-        data_convertida = datetime.strptime(data_str, "%b-%d-%Y")
-        return data_convertida.date()
-
-    def calcular_duracao(self, data_inicial: date, data_final: date):
-        duracao = data_final - data_inicial
-        print(duracao)
-        return duracao.days
+        self.data_inicio = converter_str_date(data_inicio)
+        self.data_chegada_destino = converter_str_date(data_chegada_destino)
+        self.data_partida_destino = converter_str_date(data_partida_destino)
+        self.data_chegada_retorno = converter_str_date(data_chegada_retorno)
+        self.duracao = calcular_duracao(data_inicial=self.data_inicio, data_final=self.data_chegada_retorno)
 
     def verificar_viabilidade(self):
         if self.duracao > 0:
@@ -39,7 +41,6 @@ class Viagem:
         else:
             print("Não é viavel")
             return False
-
 
     def converter_csv(self):
         return (
