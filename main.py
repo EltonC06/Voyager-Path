@@ -193,7 +193,7 @@ class ReservarViagem(Screen):
             self.data_retorno_escolhida[0],  # data partida do destino
             self.data_retorno_escolhida[1]  # data de chegada na Terra
         )
-        # Verificação da validade da viagem antes de salvar
+        # Verificação da viabilidade da viagem antes de salvar
         if not viagem.verificar_viabilidade():
             gridlayout = BoxLayout(
                 orientation="vertical",
@@ -227,7 +227,45 @@ class ReservarViagem(Screen):
         else:
             # Salvando viagem escolhida em formato csv. Datas já conferidas
             open("database/viagens_reservadas.csv", "a").writelines(viagem.converter_csv())
+            self.mostrar_popup_resumo(viagem)
         self.retornar_menu()
+
+    def mostrar_popup_resumo(self, viagem: Viagem):
+
+        gridlayout = BoxLayout(
+            orientation="vertical",
+            size=(1, 1)
+        )
+
+        aviso = Label(
+            text=f"Resumo da viagem reservada:"
+                 f"\n\nData de saída da Terra: {viagem.data_inicio}"
+                 f"\nData de chegada em {viagem.destino}: {viagem.data_chegada_destino}"
+                 f"\nData de saída de {viagem.destino}: {viagem.data_partida_destino}"
+                 f"\nData de chegada na Terra: {viagem.data_chegada_retorno}"
+                 f"\n\nFaça uma boa viagem!",
+            text_size=(250, None),
+            halign="center",
+            valign="middle"
+        )
+
+        botao = Button(
+            text='Entendido',
+            size_hint=(1, 0.2)
+        )
+
+        gridlayout.add_widget(aviso)
+        gridlayout.add_widget(botao)
+
+        popup = Popup(title="Informativo",
+                      auto_dismiss=False,
+                      size_hint=(0.5, 0.5),
+                      )
+
+        popup.add_widget(gridlayout)
+        botao.bind(on_press=popup.dismiss)
+
+        popup.open()
 
     def retornar_menu(self):
         self.clear_widgets()
