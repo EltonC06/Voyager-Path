@@ -40,6 +40,7 @@ class ViagensPlanejadas(Screen):
         cor_fundo_1 = [0, 0.5, 0.5, 1]
         cor_fundo_2 = [0, 0.3, 0.5, 1]
         self.contador = 1
+
         for linha in self.datas_reservadas:
             dados_viagem = ler_datas(linha)
             if self.contador % 2 == 0:
@@ -48,18 +49,78 @@ class ViagensPlanejadas(Screen):
                                   f"Data de retorno da viagem: {dados_viagem[3]}, "
                                   f"Data de chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
-                             background_color=cor_fundo_1)
+                             background_color=cor_fundo_1,
+                             on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
             else:
                 btn = Button(text=f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
                                   f"Data de retorno da viagem: {dados_viagem[3]}, "
                                   f"Data de chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
-                             background_color=cor_fundo_2)
+                             background_color=cor_fundo_2,
+                             on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
 
             self.ids.viagens_reservadas.add_widget(btn)
             self.contador += 1
 
+
+    def popup_cancelar_viagem(self, num_viagem: int): # mostra pop up perguntando se quer cancelar viagem
+        gridlayout = BoxLayout(
+            orientation="vertical",
+            size=(1, 1)
+        )
+
+        aviso = Label(
+            text=f"Você deseja cancelar a viagem [{num_viagem}]?",
+            text_size=(250, None),
+            halign="center",
+            valign="middle"
+        )
+
+        botao_sim = Button(
+            text='Sim',
+            size_hint=(1, 0.2),
+            on_press=lambda instance, viagem=num_viagem: self.cancelar_viagem(viagem)
+        )
+
+        botao_nao = Button(
+            text='Não',
+            size_hint=(1, 0.2)
+        )
+
+        gridlayout.add_widget(aviso)
+        gridlayout.add_widget(botao_sim)
+        gridlayout.add_widget(botao_nao)
+
+        popup = Popup(title="Cancelar viagem",
+                      auto_dismiss=False,
+                      size_hint=(0.5, 0.5),
+                      )
+
+        popup.add_widget(gridlayout)
+        botao_nao.bind(on_press=popup.dismiss)
+
+        popup.open()
+
+    def cancelar_viagem(self, num_viagem):
+        # buscando linha da viagem que quer deletar
+        self.contador = 1
+        self.viagem_cancelar = None
+        for linha in self.datas_reservadas:
+            print(linha)
+            if self.contador == num_viagem:
+                self.viagem_cancelar = linha
+            self.contador += 1
+
+        with open("database/viagens_reservadas.csv", "r") as f:
+            lines = f.readlines()
+        with open("database/viagens_reservadas.csv", "w") as f:
+            for line in lines:
+                if line.strip("\n") not in f"{self.viagem_cancelar}":
+                    print("Escrevendo linha")
+                    f.write(line)
+                else:
+                    print("Não escrevendo linha que quero deletar")
     pass
 
 
