@@ -32,6 +32,7 @@ class Menu(Screen):
 class ViagensPlanejadas(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
+        self.viagem_cancelar = None
         self.datas_reservadas = open("database/viagens_reservadas.csv").readlines()
         self.carregar_viagens_planejadas()
         self.contador = None
@@ -44,27 +45,32 @@ class ViagensPlanejadas(Screen):
         for linha in self.datas_reservadas:
             dados_viagem = ler_datas(linha)
             if self.contador % 2 == 0:
-                btn = Button(text=f"Destino: {dados_viagem[0]}\n"
+                btn = Button(text=f"Viagem {self.contador}\n"
+                                  f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
                                   f"Data de retorno da viagem: {dados_viagem[3]}, "
                                   f"Data de chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
+                             halign='center',
+                             valign="middle",
                              background_color=cor_fundo_1,
                              on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
             else:
-                btn = Button(text=f"Destino: {dados_viagem[0]}\n"
+                btn = Button(text=f"Viagem {self.contador}\n"
+                                  f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
                                   f"Data de retorno da viagem: {dados_viagem[3]}, "
                                   f"Data de chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
+                             halign='center',
+                             valign="middle",
                              background_color=cor_fundo_2,
                              on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
 
             self.ids.viagens_reservadas.add_widget(btn)
             self.contador += 1
 
-
-    def popup_cancelar_viagem(self, num_viagem: int): # mostra pop up perguntando se quer cancelar viagem
+    def popup_cancelar_viagem(self, num_viagem: int):  # mostra pop up perguntando se quer cancelar viagem
         gridlayout = BoxLayout(
             orientation="vertical",
             size=(1, 1)
@@ -72,7 +78,7 @@ class ViagensPlanejadas(Screen):
 
         aviso = Label(
             text=f"Você deseja cancelar a viagem [{num_viagem}]?",
-            text_size=(250, None),
+            text_size=(150, None),
             halign="center",
             valign="middle"
         )
@@ -94,11 +100,12 @@ class ViagensPlanejadas(Screen):
 
         popup = Popup(title="Cancelar viagem",
                       auto_dismiss=False,
-                      size_hint=(0.5, 0.5),
+                      size_hint=(0.5, 0.45),
                       )
 
         popup.add_widget(gridlayout)
         botao_nao.bind(on_press=popup.dismiss)
+        botao_sim.bind(on_press=popup.dismiss)
 
         popup.open()
 
@@ -121,6 +128,13 @@ class ViagensPlanejadas(Screen):
                     f.write(line)
                 else:
                     print("Não escrevendo linha que quero deletar")
+
+        self.retornar_menu()
+
+    def retornar_menu(self):
+        self.clear_widgets()
+        app.tela_menu_inicial()
+
     pass
 
 
@@ -292,7 +306,6 @@ class ReservarViagem(Screen):
         self.retornar_menu()
 
     def mostrar_popup_resumo(self, viagem: Viagem):
-
         gridlayout = BoxLayout(
             orientation="vertical",
             size=(1, 1)
