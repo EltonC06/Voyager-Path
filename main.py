@@ -159,13 +159,14 @@ class ReservarViagem(Screen):
                 self.datas_ida = open("database/terra-lua.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
+
                     btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada na Lua: {data[1]}",
                                  on_press=lambda instance, c=self.contador: self.salvar_ida("lua", c)
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
-            case "marte":  # !
+            case "marte":
                 print("Carregando ida: Marte")
                 self.datas_ida = open("database/terra-marte.csv").readlines()
                 for linha in self.datas_ida:
@@ -207,37 +208,88 @@ class ReservarViagem(Screen):
                 self.carregar_datas_retorno("jupiter")
 
     def carregar_datas_retorno(self, destino: str):
+        cor_inviavel = [0.255, 0, 0, 1]
+        cor_viavel = [0, 0.255, 0, 1]
         print("Carregando datas retorno")
         self.contador = 1
         match destino:
             case "marte":
                 print("Marte")
                 self.datas_retorno = open("database/marte-terra.csv").readlines()
+
                 for linha in self.datas_retorno:  # gerar botões com as datas de retorno
                     data = ler_datas(linha)
-                    btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
-                                      f"Data de chegada na Terra: {data[1]}",
-                                 on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c))
+                # logica de ver se a data de partida do planeta x é maior ou igual que a data de chegada no planeta x
+                    viagem_experimental = Viagem(
+                        "planeta_x",
+                        self.data_ida_escolhida[0],
+                        self.data_ida_escolhida[1],
+                        data[0],
+                        data[1]
+                    )
+                    if viagem_experimental.verificar_viabilidade():  # se for viavel...
+                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                                          f"Data de chegada na Terra: {data[1]}",
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
+                                     background_color=cor_viavel)
+
+                    else:
+                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                                          f"Data de chegada na Terra: {data[1]}",
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
+                                     background_color=cor_inviavel)
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
             case "lua":
                 self.datas_retorno = open("database/lua-terra.csv").readlines()
+
                 for linha in self.datas_retorno:
                     data = ler_datas(linha)
-                    btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
-                                      f"Data de chegada na Terra: {data[1]}",
-                                 on_press=lambda instance, c=self.contador: self.salvar_retorno("lua", c))
+                    viagem_experimental = Viagem(
+                        "planeta_x",
+                        self.data_ida_escolhida[0],
+                        self.data_ida_escolhida[1],
+                        data[0],
+                        data[1]
+                    )
+                    if viagem_experimental.verificar_viabilidade():
+                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                                          f"Data de chegada na Terra: {data[1]}",
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
+                                     background_color=cor_viavel)
+
+                    else:
+                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                                          f"Data de chegada na Terra: {data[1]}",
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
+                                     background_color=cor_inviavel)
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
             case "jupiter":
                 self.datas_retorno = open("database/jupiter-terra.csv").readlines()
+
                 for linha in self.datas_retorno:
                     data = ler_datas(linha)
-                    btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
-                                      f"Data de chegada na Terra: {data[1]}",
-                                 on_press=lambda instance, c=self.contador: self.salvar_retorno("jupiter", c))
+                    viagem_experimental = Viagem(
+                        "planeta_x",
+                        self.data_ida_escolhida[0],
+                        self.data_ida_escolhida[1],
+                        data[0],
+                        data[1]
+                    )
+                    if viagem_experimental.verificar_viabilidade():
+                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                                          f"Data de chegada na Terra: {data[1]}",
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
+                                     background_color=cor_viavel)
+
+                    else:
+                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                                          f"Data de chegada na Terra: {data[1]}",
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
+                                     background_color=cor_inviavel)
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
