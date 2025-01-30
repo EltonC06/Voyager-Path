@@ -55,6 +55,7 @@ class ViagensPlanejadas(Screen):
                              valign="middle",
                              background_normal="",
                              background_color=cor_fundo_1,
+                             font_name='fonts/ShareTech.ttf',
                              on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
             else:
                 btn = Button(text=f"Viagem [{self.contador}]\n"
@@ -67,6 +68,7 @@ class ViagensPlanejadas(Screen):
                              valign="middle",
                              background_normal="",
                              background_color=cor_fundo_2,
+                             font_name='fonts/ShareTech.ttf',
                              on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
 
             self.ids.viagens_reservadas.add_widget(btn)
@@ -82,18 +84,21 @@ class ViagensPlanejadas(Screen):
             text=f"Você deseja cancelar a viagem [{num_viagem}]?",
             text_size=(150, None),
             halign="center",
+            font_name="fonts/ShareTech.ttf",
             valign="middle"
         )
 
         botao_sim = Button(
             text='Sim',
             size_hint=(1, 0.2),
+            font_name='fonts/ShareTech.ttf',
             on_press=lambda instance, viagem=num_viagem: self.cancelar_viagem(viagem)
         )
 
         botao_nao = Button(
             text='Não',
-            size_hint=(1, 0.2)
+            size_hint=(1, 0.2),
+            font_name='fonts/ShareTech.ttf'
         )
 
         gridlayout.add_widget(aviso)
@@ -101,6 +106,7 @@ class ViagensPlanejadas(Screen):
         gridlayout.add_widget(botao_nao)
 
         popup = Popup(title="Cancelar viagem",
+                      title_font="fonts/ShareTech.ttf",
                       auto_dismiss=False,
                       size_hint=(0.5, 0.45),
                       )
@@ -166,7 +172,8 @@ class ReservarViagem(Screen):
                                  background_normal="",
                                  background_color=[0.8, 0.8, 0.8, 0.5],
                                  halign="center",
-                                 valign="middle"
+                                 valign="middle",
+                                 font_name='fonts/ShareTech.ttf'
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -181,7 +188,8 @@ class ReservarViagem(Screen):
                                  background_normal="",
                                  background_color=[0.8, 0.8, 0.8, 0.5],
                                  halign="center",
-                                 valign="middle"
+                                 valign="middle",
+                                 font_name='fonts/ShareTech.ttf'
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -196,7 +204,8 @@ class ReservarViagem(Screen):
                                  background_normal="",
                                  background_color=[0.8, 0.8, 0.8, 0.5],
                                  halign="center",
-                                 valign="middle"
+                                 valign="middle",
+                                 font_name='fonts/ShareTech.ttf'
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -253,7 +262,8 @@ class ReservarViagem(Screen):
                                      background_color=cor_viavel,
                                      background_normal="",
                                      halign="center",
-                                     valign="middle"
+                                     valign="middle",
+                                     font_name='fonts/ShareTech.ttf'
                                      )
 
                     else:
@@ -263,7 +273,8 @@ class ReservarViagem(Screen):
                                      background_color=cor_inviavel,
                                      background_normal="",
                                      halign="center",
-                                     valign="middle"
+                                     valign="middle",
+                                     font_name='fonts/ShareTech.ttf'
                                      )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -287,7 +298,8 @@ class ReservarViagem(Screen):
                                      background_color=cor_viavel,
                                      background_normal="",
                                      halign="center",
-                                     valign="middle"
+                                     valign="middle",
+                                     font_name='fonts/ShareTech.ttf'
                                      )
 
                     else:
@@ -297,7 +309,8 @@ class ReservarViagem(Screen):
                                      background_color=cor_inviavel,
                                      background_normal="",
                                      halign="center",
-                                     valign="middle"
+                                     valign="middle",
+                                     font_name='fonts/ShareTech.ttf'
                                      )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -321,7 +334,8 @@ class ReservarViagem(Screen):
                                      background_color=cor_viavel,
                                      background_normal="",
                                      halign="center",
-                                     valign="middle"
+                                     valign="middle",
+                                     font_name='fonts/ShareTech.ttf'
                                      )
 
                     else:
@@ -331,7 +345,8 @@ class ReservarViagem(Screen):
                                      background_color=cor_inviavel,
                                      background_normal="",
                                      halign="center",
-                                     valign="middle"
+                                     valign="middle",
+                                     font_name='fonts/ShareTech.ttf'
                                      )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -374,12 +389,14 @@ class ReservarViagem(Screen):
                 text="Você não pode planejar uma viagem que termina antes da data de início!",
                 text_size=(250, None),
                 halign="center",
-                valign="middle"
+                valign="middle",
+                font_name="fonts/ShareTech.ttf"
             )
 
             botao = Button(
                 text='Entendido',
-                size_hint=(1, 0.2)
+                size_hint=(1, 0.2),
+                font_name='fonts/ShareTech.ttf'
             )
 
             gridlayout.add_widget(aviso)
@@ -388,6 +405,7 @@ class ReservarViagem(Screen):
             popup = Popup(title="Atenção!",
                           auto_dismiss=True,
                           size_hint=(0.5, 0.5),
+                          title_font="fonts/ShareTech.ttf"
                           )
 
             popup.add_widget(gridlayout)
@@ -415,13 +433,15 @@ class ReservarViagem(Screen):
                  f"\n\nDuração da viagem: {viagem.duracao} dias"
                  f"\n\nFaça uma boa viagem!",
             text_size=(250, None),
+            font_name="fonts/ShareTech.ttf",
             halign="center",
             valign="middle"
         )
 
         botao = Button(
             text='Entendido',
-            size_hint=(1, 0.2)
+            size_hint=(1, 0.2),
+            font_name='fonts/ShareTech.ttf'
         )
 
         gridlayout.add_widget(aviso)
@@ -429,6 +449,7 @@ class ReservarViagem(Screen):
 
         popup = Popup(title="Informativo",
                       auto_dismiss=True,
+                      title_font="fonts/ShareTech.ttf",
                       size_hint=(0.7, 0.5),
                       )
 
