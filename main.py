@@ -38,32 +38,34 @@ class ViagensPlanejadas(Screen):
         self.contador = None
 
     def carregar_viagens_planejadas(self):
-        cor_fundo_1 = [0, 0.5, 0.5, 1]
-        cor_fundo_2 = [0, 0.3, 0.5, 1]
+        cor_fundo_1 = [0, 0.5, 0.5, 0.9]
+        cor_fundo_2 = [0, 0.3, 0.5, 0.9]
         self.contador = 1
 
         for linha in self.datas_reservadas:
             dados_viagem = ler_datas(linha)
             if self.contador % 2 == 0:
-                btn = Button(text=f"Viagem {self.contador}\n"
+                btn = Button(text=f"Viagem [{self.contador}]\n"
                                   f"Destino: {dados_viagem[0]}\n"
-                                  f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
-                                  f"Data de retorno da viagem: {dados_viagem[3]}, "
-                                  f"Data de chegada na Terra:{dados_viagem[4]}\n"
+                                  f"Início da viagem: {dados_viagem[1]}, Chegada no destino:{dados_viagem[2]}\n"
+                                  f"Retorno da viagem: {dados_viagem[3]}, "
+                                  f"Chegada na Terra: {dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
                              halign='center',
                              valign="middle",
+                             background_normal="",
                              background_color=cor_fundo_1,
                              on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
             else:
-                btn = Button(text=f"Viagem {self.contador}\n"
+                btn = Button(text=f"Viagem [{self.contador}]\n"
                                   f"Destino: {dados_viagem[0]}\n"
                                   f"Início da viagem: {dados_viagem[1]}, Chegada no destino: {dados_viagem[2]}\n"
-                                  f"Data de retorno da viagem: {dados_viagem[3]}, "
-                                  f"Data de chegada na Terra:{dados_viagem[4]}\n"
+                                  f"Retorno da viagem: {dados_viagem[3]}, "
+                                  f"Chegada na Terra:{dados_viagem[4]}\n"
                                   f"Duração total da viagem: {dados_viagem[5]} dias",
                              halign='center',
                              valign="middle",
+                             background_normal="",
                              background_color=cor_fundo_2,
                              on_press=lambda instance, num_viagem=self.contador: self.popup_cancelar_viagem(num_viagem))
 
@@ -129,11 +131,10 @@ class ViagensPlanejadas(Screen):
                 else:
                     print("Não escrevendo linha que quero deletar")
 
-        self.retornar_menu()
+        self.recarregar_viagens_planejadas()
 
-    def retornar_menu(self):
-        self.clear_widgets()
-        app.tela_menu_inicial()
+    def recarregar_viagens_planejadas(self):
+        app.tela_menu_viagens_planejadas()
 
     pass
 
@@ -160,8 +161,12 @@ class ReservarViagem(Screen):
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
 
-                    btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada na Lua: {data[1]}",
-                                 on_press=lambda instance, c=self.contador: self.salvar_ida("lua", c)
+                    btn = Button(text=f"[{self.contador}]\nInício da viagem: {data[0]}\nChegada na Lua: {data[1]}",
+                                 on_press=lambda instance, c=self.contador: self.salvar_ida("lua", c),
+                                 background_normal="",
+                                 background_color=[0.8, 0.8, 0.8, 0.5],
+                                 halign="center",
+                                 valign="middle"
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -171,8 +176,12 @@ class ReservarViagem(Screen):
                 self.datas_ida = open("database/terra-marte.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
-                    btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Marte: {data[1]}",
-                                 on_press=lambda instance, c=self.contador: self.salvar_ida("marte", c)
+                    btn = Button(text=f"[{self.contador}]\nInício da viagem: {data[0]}\nChegada em Marte: {data[1]}",
+                                 on_press=lambda instance, c=self.contador: self.salvar_ida("marte", c),
+                                 background_normal="",
+                                 background_color=[0.8, 0.8, 0.8, 0.5],
+                                 halign="center",
+                                 valign="middle"
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -182,8 +191,12 @@ class ReservarViagem(Screen):
                 self.datas_ida = open("database/terra-jupiter.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
-                    btn = Button(text=f"[{self.contador}] Início da viagem: {data[0]}, Chegada em Jupiter: {data[1]}",
-                                 on_press=lambda instance, c=self.contador: self.salvar_ida("jupiter", c)
+                    btn = Button(text=f"[{self.contador}]\nInício da viagem: {data[0]}\nChegada em Jupiter: {data[1]}",
+                                 on_press=lambda instance, c=self.contador: self.salvar_ida("jupiter", c),
+                                 background_normal="",
+                                 background_color=[0.8, 0.8, 0.8, 0.5],
+                                 halign="center",
+                                 valign="middle"
                                  )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
@@ -208,6 +221,12 @@ class ReservarViagem(Screen):
                 self.carregar_datas_retorno("jupiter")
 
     def carregar_datas_retorno(self, destino: str):
+        # mostrar resumo das datas escolhidas pelo usuario ate agora
+        self.ids.resumo_viagem.font_size = "20sp"
+        self.ids.resumo_viagem.text = f"Data de ida escolhida: {self.data_ida_escolhida[0]}" \
+                                      f"\nData de chegada no destino: {self.data_ida_escolhida[1]}"\
+                                      f"\n\nAgora selecione as datas de retorno:"
+
         cor_inviavel = [0.255, 0, 0, 1]
         cor_viavel = [0, 0.255, 0, 1]
         print("Carregando datas retorno")
@@ -228,16 +247,24 @@ class ReservarViagem(Screen):
                         data[1]
                     )
                     if viagem_experimental.verificar_viabilidade():  # se for viavel...
-                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                        btn = Button(text=f"[{self.contador}]\nData de partida: {data[0]}\n"
                                           f"Data de chegada na Terra: {data[1]}",
                                      on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
-                                     background_color=cor_viavel)
+                                     background_color=cor_viavel,
+                                     background_normal="",
+                                     halign="center",
+                                     valign="middle"
+                                     )
 
                     else:
-                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                        btn = Button(text=f"[{self.contador}]\nData de partida: {data[0]}\n"
                                           f"Data de chegada na Terra: {data[1]}",
                                      on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
-                                     background_color=cor_inviavel)
+                                     background_color=cor_inviavel,
+                                     background_normal="",
+                                     halign="center",
+                                     valign="middle"
+                                     )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
@@ -254,16 +281,24 @@ class ReservarViagem(Screen):
                         data[1]
                     )
                     if viagem_experimental.verificar_viabilidade():
-                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                        btn = Button(text=f"[{self.contador}]\nData de partida: {data[0]}\n"
                                           f"Data de chegada na Terra: {data[1]}",
-                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
-                                     background_color=cor_viavel)
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("lua", c),
+                                     background_color=cor_viavel,
+                                     background_normal="",
+                                     halign="center",
+                                     valign="middle"
+                                     )
 
                     else:
-                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                        btn = Button(text=f"[{self.contador}]\nData de partida: {data[0]}\n"
                                           f"Data de chegada na Terra: {data[1]}",
-                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
-                                     background_color=cor_inviavel)
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("lua", c),
+                                     background_color=cor_inviavel,
+                                     background_normal="",
+                                     halign="center",
+                                     valign="middle"
+                                     )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
@@ -280,16 +315,24 @@ class ReservarViagem(Screen):
                         data[1]
                     )
                     if viagem_experimental.verificar_viabilidade():
-                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                        btn = Button(text=f"[{self.contador}]\nData de partida: {data[0]}\n"
                                           f"Data de chegada na Terra: {data[1]}",
-                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
-                                     background_color=cor_viavel)
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("jupiter", c),
+                                     background_color=cor_viavel,
+                                     background_normal="",
+                                     halign="center",
+                                     valign="middle"
+                                     )
 
                     else:
-                        btn = Button(text=f"[{self.contador}] Data de partida: {data[0]},"
+                        btn = Button(text=f"[{self.contador}]\nData de partida: {data[0]}\n"
                                           f"Data de chegada na Terra: {data[1]}",
-                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("marte", c),
-                                     background_color=cor_inviavel)
+                                     on_press=lambda instance, c=self.contador: self.salvar_retorno("jupiter", c),
+                                     background_color=cor_inviavel,
+                                     background_normal="",
+                                     halign="center",
+                                     valign="middle"
+                                     )
                     self.ids.viagens_grid.add_widget(btn)
                     self.contador += 1
 
@@ -343,7 +386,7 @@ class ReservarViagem(Screen):
             gridlayout.add_widget(botao)
 
             popup = Popup(title="Atenção!",
-                          auto_dismiss=False,
+                          auto_dismiss=True,
                           size_hint=(0.5, 0.5),
                           )
 
@@ -369,6 +412,7 @@ class ReservarViagem(Screen):
                  f"\nData de chegada em {viagem.destino}: {viagem.data_chegada_destino}"
                  f"\nData de saída de {viagem.destino}: {viagem.data_partida_destino}"
                  f"\nData de chegada na Terra: {viagem.data_chegada_retorno}"
+                 f"\n\nDuração da viagem: {viagem.duracao} dias"
                  f"\n\nFaça uma boa viagem!",
             text_size=(250, None),
             halign="center",
@@ -384,8 +428,8 @@ class ReservarViagem(Screen):
         gridlayout.add_widget(botao)
 
         popup = Popup(title="Informativo",
-                      auto_dismiss=False,
-                      size_hint=(0.5, 0.5),
+                      auto_dismiss=True,
+                      size_hint=(0.7, 0.5),
                       )
 
         popup.add_widget(gridlayout)

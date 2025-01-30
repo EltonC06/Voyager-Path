@@ -2,11 +2,18 @@
     BoxLayout:
         padding: '20dp'
         orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0.2, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
         BoxLayout:
             size_hint: (1, 0.2)
             orientation: 'vertical'
             Label:
                 text: 'Voyager Path'
+                font_size: '60sp'
             Label:
                 text: 'Escolha seu destino:'
         GridLayout:
@@ -14,18 +21,29 @@
             spacing: '10dp'
             padding: '10dp'
             Button:
+                background_normal: ""
+                background_color: 0.101, 0.101, 0.101, 1
+                font_size: '39sp'
                 text: 'Lua'
                 on_press: app.tela_reservar_viagem("lua")
             Button:
+                background_normal: ""
+                background_color: 0.222, 0.101, 0.108, 1
+                font_size: '39sp'
                 text: 'Marte'
                 on_press: app.tela_reservar_viagem("marte")
             Button:
-                text: 'Jupiter'
+                background_normal: ""
+                background_color: 0.255, 0.190, 0.108, 1
+                font_size: '39sp'
+                text: 'Júpiter'
                 on_press: app.tela_reservar_viagem("jupiter")
         BoxLayout:
             orientation: 'vertical'
             size_hint: (0.5, 0.1)
             Button:
+                background_normal: ""
+                background_color: 0.07, 0.255, 0.07, 1
                 size_hint: (1, 1)
                 pos_hint: {"x": 0.5, "y": 1}
                 text: 'Ver viagens planejadas'
@@ -34,11 +52,20 @@
 
 <ViagensPlanejadas>:
     GridLayout:
+        padding: '10dp'
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0.2, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
         cols: 1
         BoxLayout:
+            size_hint: (1, 0.20)
             orientation: 'vertical'
             Label:
                 text: 'Viagens planejadas'
+                font_size: "35dp"
         ScrollView:
             size_hint: (1, 1)
             GridLayout:
@@ -49,17 +76,33 @@
                 row_default_height: "100dp"
                 spacing: "10dp"
         Button:
-            size_hint: (1, 0.15)
+            background_normal: ""
+            background_color: 0.255, 0.101, 0.108, 1
+            size_hint: (1, 0.075)
             text: 'Retornar ao menu inicial'
+            font_size: "20sp"
             on_press: app.tela_menu_inicial()
 
 <ReservarViagem>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0.2, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
     GridLayout:
+        padding: '20dp'
         cols: 1
         BoxLayout:
+            size_hint: (1, 0.19)
             orientation: 'vertical'
             Label:
-                text: 'Selecione a data de ida e de volta'
+                id: resumo_viagem
+                text: 'Selecione as datas'
+                font_size: '27sp'
+                halign: "center"
+                valign: "middle"
+
         ScrollView:
             GridLayout:
                 cols: 1
@@ -68,4 +111,11 @@
                 height: self.minimum_height
                 row_default_height: "70dp"
                 spacing: "10dp"
-
+                padding: '20dp'
+        Button:
+            background_normal: ""
+            background_color: 0.255, 0.101, 0.108, 1
+            size_hint: (1, 0.075)
+            text: 'Retornar ao menu inicial'
+            font_size: "20sp"
+            on_press: app.tela_menu_inicial()
