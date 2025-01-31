@@ -4,8 +4,9 @@
         orientation: 'vertical'
         canvas.before:
             Color:
-                rgba: 0, 0, 0.2, 1
+                rgba: 1, 1, 1, 0.5
             Rectangle:
+                source: "images/main_background.png"
                 pos: self.pos
                 size: self.size
         BoxLayout:
@@ -23,22 +24,43 @@
             spacing: '10dp'
             padding: '10dp'
             Button:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        source: "images/moon_background.png"
+                        pos: self.pos
+                        size: self.size
                 background_normal: ""
-                background_color: 0.101, 0.101, 0.101, 1
+                background_color: 0.101, 0.101, 0.101, 0.5
                 font_size: '39sp'
                 text: 'Lua'
                 font_name: 'fonts/ShareTech.ttf'
                 on_press: app.tela_reservar_viagem("lua")
             Button:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        source: "images/mars_background.png"
+                        pos: self.pos
+                        size: self.size
                 background_normal: ""
-                background_color: 0.222, 0.101, 0.108, 1
+                background_color: 0.222, 0.101, 0.108, 0.5
                 font_size: '39sp'
                 text: 'Marte'
                 font_name: 'fonts/ShareTech.ttf'
                 on_press: app.tela_reservar_viagem("marte")
             Button:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        source: "images/jupiter_background.png"
+                        pos: self.pos
+                        size: self.size
                 background_normal: ""
-                background_color: 0.255, 0.190, 0.108, 1
+                background_color: 0.255, 0.190, 0.108, 0.5
                 font_size: '39sp'
                 text: 'Júpiter'
                 font_name: 'fonts/ShareTech.ttf'
@@ -48,7 +70,7 @@
             size_hint: (0.5, 0.1)
             Button:
                 background_normal: ""
-                background_color: 0.07, 0.255, 0.07, 1
+                background_color: 0.07, 0.255, 0.07, 0.79
                 size_hint: (1, 1)
                 pos_hint: {"x": 0.5, "y": 1}
                 text: 'Ver viagens planejadas'
@@ -61,8 +83,9 @@
         padding: '10dp'
         canvas.before:
             Color:
-                rgba: 0, 0, 0.2, 1
+                rgba: 1, 1, 1, 0.5
             Rectangle:
+                source: "images/trips_background.png"
                 pos: self.pos
                 size: self.size
         cols: 1
@@ -76,12 +99,19 @@
         ScrollView:
             size_hint: (1, 1)
             GridLayout:
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0.2, 0.57
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
                 cols: 1
                 id: viagens_reservadas
                 size_hint_y: None
                 height: self.minimum_height
                 row_default_height: "100dp"
                 spacing: "10dp"
+                padding: "10dp"
         Button:
             background_normal: ""
             background_color: 0.255, 0.101, 0.108, 1
@@ -94,8 +124,10 @@
 <ReservarViagem>:
     canvas.before:
         Color:
-            rgba: 0, 0, 0.2, 1
+            rgba: 1, 1, 1, 1
         Rectangle:
+            id: background_retorno
+            source: "images/background_trip.png"
             pos: self.pos
             size: self.size
     GridLayout:
@@ -114,6 +146,12 @@
 
         ScrollView:
             GridLayout:
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0.2, 0.8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
                 cols: 1
                 id: viagens_grid
                 size_hint_y: None
