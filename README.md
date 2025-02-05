@@ -1,36 +1,52 @@
-"Voyager Path - Planejador de Viagens Espaciais"  
+# Voyager Path
 
-Descrição do Projeto:  
-O aplicativo simulará um sistema de planejamento de viagens espaciais no futuro, onde o usuário poderá escolher destinos no Sistema Solar (como a Lua, Marte, ou Júpiter), a data de partida, e a duração da permanência no destino. O sistema calculará:  
-1. O tempo estimado da viagem de ida e volta (considerando trajetos ideais).   
-2. Um resumo do cronograma de viagem, exibindo total de dias.  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/EltonC06/Voyager-Path/blob/main/LICENSE)
 
-Ponto de Partida:  
-O aplicativo será criado totalmente do zero, utilizando Python para a lógica e o framework Kivy para a interface gráfica. Não utilizarei nenhum código-fonte pré-existente como base.  
+## Sobre o projeto
 
-Funcionalidades que Pretendo Desenvolver: 
-1. Escolha do Destino:  
-   - O usuário poderá selecionar um local do Sistema Solar.  
-   - Destinos iniciais incluem a Lua, Marte, Júpiter, entre outros.  
+Voyager Path é um programa de python desenvolvido para propósitos de aprendizado.
 
-2. Cálculo de Tempo de Viagem:  
-   - O tempo de viagem será calculado com base em distâncias hipotéticas entre os planetas.
-   - Rotas ideais serão consideradas para cada destino.
+Seu principal objetivo é que os usuários possam reservar viagens interplanetárias fictícias, escolhendo a data de partida e também a data de retorno para a Terra.
 
-3. Configuração da Permanência:  
-   - O usuário poderá escolher o tempo de permanência no destino.  
+## Tecnologias usadas
+- Python 3.10
+- Kivy
 
-4. Paradas adicionais:
-   - O usuário poderá adicionar paradas adicionais em sua viagem (ex.: uma parada na Lua antes de ir para Marte).  
+## Como rodar o projeto
 
-5. Resumo da Viagem:  
-   - O aplicativo apresentará um relatório final com a duração total (ida + permanência + volta) e as paradas realizadas.
+### Pre requisitos:
+- IDE para Python
+- Python 3.10
+- Kivy instalado
 
-6. Interface:  
-   - Usarei Kivy para criar telas intuitivas onde o usuário poderá navegar entre as opções de destino, permanência e visualizar os resultados.  
+### Guia passo a passo
 
-Justificativa:  
-O tema foi escolhido para alinhar com meu interesse pela área espacial e também para aplicar conceitos de lógica de programação aprendidos durante o curso, como cálculos baseados em condições e manipulação de entradas do usuário.  
+1. **Clone o repositorio**
+   ```bash
+   git clone git@github.com:EltonC06/Voyager-Path.git
+   ```
 
-Diferenciais:  
-Este aplicativo vai além de um simples cálculo, pois integra a lógica de paradas adicionais e simula uma futura realidade onde viagens espaciais são comuns, incentivando o usuário a imaginar possibilidades inovadoras.
+2. **Abra o projeto**
+   - Abra o projeto na sua IDE de preferência
+
+3. **Configure o Kivy**
+   - Caso não tenha instalado, no terminal da IDE digite: `pip install Kivy`
+
+4. **Rode a aplicação**
+   - Clique para rodar a aplicação
+
+## Como você pode contribuir
+
+- Melhore a interface do projeto
+- Adicione mais opções de viagem
+- Ajude a portar o projeto para APK
+- Traduza o código para inglês
+- Transforme o banco de dados TXT em SQL
+- Altere a formatação da data para ficar mais amigável ao usuário
+- Adicione a opção de mostrar trajetória a ser percorrida na viagem do usuário no Sistema Solar
+
+## Autor
+
+Elton da Costa Oliveira
+
+[LinkedIn](https://www.linkedin.com/in/elton-da-costa/)
