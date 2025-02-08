@@ -8,6 +8,12 @@ Voyager Path é um programa de python desenvolvido para propósitos de aprendiza
 
 Seu principal objetivo é que os usuários possam reservar viagens interplanetárias fictícias, escolhendo a data de partida e também a data de retorno para a Terra.
 
+## Capturas de tela do projeto
+
+<img src="./images/screenshots/tela_inicial.png" alt="drawning" width="199">
+<img src="./images/screenshots/reservar_viagem.png" alt="drawning" width="199">
+<img src="./images/screenshots/viagens_planejadas.png" alt="drawning" width="199">
+
 ## Tecnologias usadas
 - Python 3.10
 - Kivy
