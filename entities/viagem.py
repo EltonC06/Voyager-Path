@@ -8,7 +8,6 @@ def converter_str_date(data_str: str):
 
 def calcular_duracao(data_inicial: date, data_final: date):
     duracao = data_final - data_inicial
-    print(duracao)
     return duracao.days
 
 
@@ -30,16 +29,11 @@ class Viagem:
 
     def verificar_viabilidade(self):
         if self.duracao > 0:
-            print("Duração > 0")
             if self.data_partida_destino >= self.data_chegada_destino:
-                print("Data de partida é maior ou igual que data de chegada no destino")
                 return True
             else:
-                print("Data de partida é menor que data de chegada no destino")
-                print("inviavel")
                 return False
         else:
-            print("Não é viavel")
             return False
 
     def limpar_datas_retorno(self):

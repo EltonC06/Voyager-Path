@@ -122,7 +122,6 @@ class ViagensPlanejadas(Screen):
         self.contador = 1
         self.viagem_cancelar = None
         for linha in self.datas_reservadas:
-            print(linha)
             if self.contador == num_viagem:
                 self.viagem_cancelar = linha
             self.contador += 1
@@ -131,11 +130,8 @@ class ViagensPlanejadas(Screen):
             lines = f.readlines()
         with open("database/viagens_reservadas.csv", "w") as f:
             for line in lines:
-                if line.strip("\n") not in f"{self.viagem_cancelar}":
-                    print("Escrevendo linha")
+                if line.strip("\n") not in f"{self.viagem_cancelar}":  # se linha não for a que quero deletar, escrevo
                     f.write(line)
-                else:
-                    print("Não escrevendo linha que quero deletar")
 
         self.recarregar_viagens_planejadas()
 
@@ -162,7 +158,6 @@ class ReservarViagem(Screen):
         self.contador = 1
         match destino:
             case "lua":
-                print("Lua")
                 self.datas_ida = open("database/terra-lua.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
@@ -179,7 +174,6 @@ class ReservarViagem(Screen):
                     self.contador += 1
 
             case "marte":
-                print("Carregando ida: Marte")
                 self.datas_ida = open("database/terra-marte.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
@@ -195,7 +189,6 @@ class ReservarViagem(Screen):
                     self.contador += 1
 
             case "jupiter":
-                print("Jupiter")
                 self.datas_ida = open("database/terra-jupiter.csv").readlines()
                 for linha in self.datas_ida:
                     data = ler_datas(linha)
@@ -213,9 +206,7 @@ class ReservarViagem(Screen):
     def salvar_ida(self, destino: str, num_ida: int):
         match destino:
             case "marte":
-                print("Salvando ida: Marte")
                 self.data_ida_escolhida = ler_datas(self.datas_ida[num_ida - 1])
-                print("ida escolhida: " + self.data_ida_escolhida[0] + " " + self.data_ida_escolhida[1])
                 self.ids.viagens_grid.clear_widgets()
                 self.carregar_datas_retorno("marte")
 
@@ -238,11 +229,9 @@ class ReservarViagem(Screen):
 
         cor_inviavel = [0.255, 0, 0, 1]
         cor_viavel = [0, 0.255, 0, 1]
-        print("Carregando datas retorno")
         self.contador = 1
         match destino:
             case "marte":
-                print("Marte")
                 self.datas_retorno = open("database/marte-terra.csv").readlines()
 
                 for linha in self.datas_retorno:  # gerar botões com as datas de retorno
@@ -352,13 +341,9 @@ class ReservarViagem(Screen):
                     self.contador += 1
 
     def salvar_retorno(self, destino: str, num_volta: int):
-        print("Salvando retorno")
         match destino:
             case "marte":
-                print("Marte")
                 self.data_retorno_escolhida = ler_datas(self.datas_retorno[num_volta - 1])
-                print(
-                    "Data retorno escolhida: " + self.data_retorno_escolhida[0] + " " + self.data_retorno_escolhida[1])
                 self.ids.viagens_grid.clear_widgets()
                 self.salvar_viagem("marte")
             case "lua":
