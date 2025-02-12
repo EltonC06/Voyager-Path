@@ -76,6 +76,8 @@ class ViagensPlanejadas(Screen):
             self.contador += 1
 
     def popup_cancelar_viagem(self, num_viagem: int):  # mostra pop up perguntando se quer cancelar viagem
+        cor_vermelha = [0.255, 0, 0, 1]
+        cor_verde = [0, 0.255, 0, 1]
         gridlayout = BoxLayout(
             orientation="vertical",
             size=(1, 1)
@@ -93,13 +95,17 @@ class ViagensPlanejadas(Screen):
             text='Sim',
             size_hint=(1, 0.2),
             font_name='fonts/ShareTech.ttf',
+            background_color=cor_vermelha,
+            background_normal="",
             on_press=lambda instance, viagem=num_viagem: self.cancelar_viagem(viagem)
         )
 
         botao_nao = Button(
             text='Não',
             size_hint=(1, 0.2),
-            font_name='fonts/ShareTech.ttf'
+            font_name='fonts/ShareTech.ttf',
+            background_color=cor_verde,
+            background_normal="",
         )
 
         gridlayout.add_widget(aviso)
@@ -110,6 +116,7 @@ class ViagensPlanejadas(Screen):
                       title_font="fonts/ShareTech.ttf",
                       auto_dismiss=False,
                       size_hint=(0.5, 0.45),
+                      background_color=[0, 0, 0.7, 1]
                       )
 
         popup.add_widget(gridlayout)
@@ -164,7 +171,6 @@ class ReservarViagem(Screen):
 
     def on_pos(self, *args):  # Posição será a posição do layout (self.pos)
         self.rect.pos = self.pos
-
 
     def carregar_datas_ida(self, destino):
         self.contador = 1
@@ -394,7 +400,9 @@ class ReservarViagem(Screen):
             botao = Button(
                 text='Entendido',
                 size_hint=(1, 0.2),
-                font_name='fonts/ShareTech.ttf'
+                font_name='fonts/ShareTech.ttf',
+                background_color=[0.5, 0.5, 0, 0.6],
+                background_normal=""
             )
 
             gridlayout.add_widget(aviso)
@@ -403,7 +411,8 @@ class ReservarViagem(Screen):
             popup = Popup(title="Atenção!",
                           auto_dismiss=True,
                           size_hint=(0.5, 0.5),
-                          title_font="fonts/ShareTech.ttf"
+                          title_font="fonts/ShareTech.ttf",
+                          background_color=[1, 0, 0, 0.9]
                           )
 
             popup.add_widget(gridlayout)
@@ -416,7 +425,7 @@ class ReservarViagem(Screen):
             self.mostrar_popup_resumo(viagem)
         self.retornar_menu()
 
-    def mostrar_popup_resumo(self, viagem: Viagem):
+    def mostrar_popup_resumo(self, viagem: Viagem):  # mostra o resumo da viagem aos usuarios
         gridlayout = BoxLayout(
             orientation="vertical",
             size=(1, 1)
@@ -439,7 +448,9 @@ class ReservarViagem(Screen):
         botao = Button(
             text='Entendido',
             size_hint=(1, 0.2),
-            font_name='fonts/ShareTech.ttf'
+            font_name='fonts/ShareTech.ttf',
+            background_color=[0, 0.3, 0.5, 0.9],
+            background_normal=""
         )
 
         gridlayout.add_widget(aviso)
@@ -449,6 +460,7 @@ class ReservarViagem(Screen):
                       auto_dismiss=True,
                       title_font="fonts/ShareTech.ttf",
                       size_hint=(0.7, 0.5),
+                      background_color=[0, 0, 0.7, 1]
                       )
 
         popup.add_widget(gridlayout)
@@ -499,14 +511,3 @@ class MainApp(App):
 if __name__ == '__main__':
     app = MainApp()
     app.run()
-
-'''
-    canvas:
-        Color:
-            rgba: 1, 1, 1, 1
-        Rectangle:
-            id: background_retorno
-            source: "images/background_trip.png"
-            pos: self.pos
-            size: self.size
-'''
