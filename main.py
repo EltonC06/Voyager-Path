@@ -1,3 +1,4 @@
+from kivy.graphics import Rectangle
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
@@ -153,6 +154,17 @@ class ReservarViagem(Screen):
         self.destino = destino
         self.contador = 1
         self.carregar_datas_ida(destino)
+        # Carregar retangulo (background):
+        with self.canvas.before:
+            self.rect = Rectangle(source='images/background_trip.png')  # definida imagem de background (será mudada)
+
+    # ajustando posição de background manualmente
+    def on_size(self, *args):  # tamanho será o tamanho do layout (self.size)
+        self.rect.size = self.size
+
+    def on_pos(self, *args):  # Posição será a posição do layout (self.pos)
+        self.rect.pos = self.pos
+
 
     def carregar_datas_ida(self, destino):
         self.contador = 1
@@ -222,6 +234,7 @@ class ReservarViagem(Screen):
 
     def carregar_datas_retorno(self, destino: str):
         # mostrar resumo das datas escolhidas pelo usuario ate agora
+        self.rect.source = "images/background_back.png"
         self.ids.resumo_viagem.font_size = "20sp"
         self.ids.resumo_viagem.text = f"Data de ida escolhida: {self.data_ida_escolhida[0]}" \
                                       f"\nData de chegada no destino: {self.data_ida_escolhida[1]}"\
@@ -486,4 +499,14 @@ class MainApp(App):
 if __name__ == '__main__':
     app = MainApp()
     app.run()
-    
+
+'''
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            id: background_retorno
+            source: "images/background_trip.png"
+            pos: self.pos
+            size: self.size
+'''

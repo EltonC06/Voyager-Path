@@ -122,14 +122,7 @@
             on_press: app.tela_menu_inicial()
 
 <ReservarViagem>:
-    canvas.before:
-        Color:
-            rgba: 1, 1, 1, 1
-        Rectangle:
-            id: background_retorno
-            source: "images/background_trip.png"
-            pos: self.pos
-            size: self.size
+    id: reservar_viagem
     GridLayout:
         padding: '20dp'
         cols: 1
